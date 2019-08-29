@@ -1,0 +1,23 @@
+{
+  "name": "17.node-hello",
+  "version": "1.0.0",
+  "description": "Node 기본문법",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/booldook/2019-sc-web-node-hello.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/booldook/2019-sc-web-node-hello/issues"
+  },
+  "homepage": "https://github.com/booldook/2019-sc-web-node-hello#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
