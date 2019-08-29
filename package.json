@@ -1,7 +1,7 @@
 {
   "name": "17.node-hello",
   "version": "1.0.0",
-  "description": "Node 기본문법",
+  "description": "노드 프로젝트",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
