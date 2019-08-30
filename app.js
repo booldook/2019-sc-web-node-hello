@@ -1,11 +1,14 @@
 const express = require('express');
 const app = express();
 
+const bodyParser = require('body-parser');
+
 app.listen(3000, () => {
 	console.log("http://127.0.0.1:3000");
 });
 
 // Router(길잡이)
+app.use(bodyParser.urlencoded({extended: false}));
 app.use("/", express.static("./public"));
 
 app.get("/hello", (req, res) => {
@@ -13,4 +16,9 @@ app.get("/hello", (req, res) => {
 	var style = ` style="text-align:center; color: blue; padding: 3rem"`;
 	var html = `<h1 ${style}>${id} 님 반갑습니다.</h1>`;
 	res.send(html);
+});
+
+app.post("/gbook_save", (req, res) => {
+	var comment = req.body.comment;
+	res.send(comment);
 });
