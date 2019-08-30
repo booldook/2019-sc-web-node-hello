@@ -13,9 +13,14 @@
 <body>
 	<header w3-include-html="../inc/header.html"></header>
 	<!-- 내용 시작 -->
-
-
-	
+	<div class="container my-3">
+		<form action="/gbook_save" method="post" name="gForm" onsubmit="return onSend(this);">
+			<div class="form-inline">
+				<input type="text" name="comment" class="form-control mr-2" placeholder="한마디 남겨주세요.">
+				<button type="submit" class="btn btn-primary">저장</button>
+			</div>
+		</form>
+	</div>
 	<!-- 내용 종료 -->
 	<footer w3-include-html="../inc/footer.html"></footer>
 	<script src="../js/jquery-3.4.1.min.js"></script>
@@ -24,5 +29,6 @@
 	<script src="../js/imagesloaded.pkgd.min.js"></script>
 	<script src="../js/wow.min.js"></script>
 	<script src="../js/util.js"></script>
+	<script src="../js/gbook.js"></script>
 </body>
 </html>
