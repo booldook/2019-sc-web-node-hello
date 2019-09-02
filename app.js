@@ -8,7 +8,7 @@ app.listen(3000, () => {
 });
 
 // Router(길잡이)
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use("/", express.static("./public"));
 
 app.get("/hello", (req, res) => {
@@ -21,4 +21,9 @@ app.get("/hello", (req, res) => {
 app.post("/gbook_save", (req, res) => {
 	var comment = req.body.comment;
 	res.send(comment);
+});
+
+app.get("/gbook/:page", (req, res) => {
+	var page = req.params.page;
+	res.send("현재 페이지는 "+page+"입니다.");
 });
