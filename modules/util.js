@@ -42,8 +42,13 @@ const dspDate = (d, type) => {
 			break;
 		default :
 			// 2019-09-03 14:08:09
-			returnStr = d.getFullYear() + '-' + zp(d.getMonth() + 1) + '-' + zp(d.getDate()) + " " + zp(d.getHours()) + ":" + zp(d.getMinutes()) + ":" + d.getSeconds();
+			returnStr = d.getFullYear() + '-' + zp(d.getMonth() + 1) + '-' + zp(d.getDate()) + " " + zp(d.getHours()) + ":" + zp(d.getMinutes()) + ":" + zp(d.getSeconds());
 			break;
 	}
 	return returnStr;
+}
+
+module.exports = {
+	dspDate,
+	zp
 }
