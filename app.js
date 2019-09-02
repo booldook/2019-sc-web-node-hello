@@ -1,8 +1,10 @@
+// const nameMaker = require('./modules/test');
+
 const express = require('express');
 const app = express();
 
 const bodyParser = require('body-parser');
-// const nameMaker = require('./modules/test');
+const db = require("./modules/mysql_conn");
 
 app.listen(3000, () => {
 	console.log("http://127.0.0.1:3000");
@@ -26,6 +28,19 @@ app.get("/hello", (req, res) => {
 
 app.post("/gbook_save", (req, res) => {
 	var comment = req.body.comment;
+	db.conn.getConnection((err, connect) => {
+		if(err) res.send("DB접속 오류가 발생했습니다.");
+		else {
+			var sql = 'INSERT INTO gbook SET comment=?, wtime=?';
+			var vals = [comment, ];
+			connect.query(sql, vals, (err, result) => {
+				if(err) res.send("데이터 저장에 실패했습니다.");
+				else {
+
+				}
+			});
+		}
+	});
 	res.send(comment);
 });
 
