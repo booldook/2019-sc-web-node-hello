@@ -2,9 +2,15 @@ const express = require('express');
 const app = express();
 
 const bodyParser = require('body-parser');
+// const nameMaker = require('./modules/test');
 
 app.listen(3000, () => {
 	console.log("http://127.0.0.1:3000");
+	/*
+	console.log(nameMaker.firstName);
+	console.log(nameMaker.lastName);
+	console.log(nameMaker.fullName());
+	*/
 });
 
 // Router(길잡이)
