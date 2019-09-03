@@ -10,21 +10,13 @@ const sqlPool = mysql.createPool({
 	queueLimit: 0,
 	connectionLimit: 10
 });
-
 const sqlErr = err => {
 	console.log(err);
 }
-
 const sqlExec = async (sql, vals) => {
 	const connect = await sqlPool.getConnection(async conn => conn);
 	const data = await connect.query(sql, vals);
 	connect.release();
 	return data;
 }
-
-module.exports = {
-	mysql,
-	sqlPool,
-	sqlErr,
-	sqlExec
-}
+module.exports = {mysql, sqlPool, sqlErr, sqlExec}
