@@ -32,7 +32,7 @@ app.get("/hello", (req, res) => {
 	res.send(html);
 });
 
-/*
+
 app.post("/gbook_save", (req, res) => {
 	var comment = req.body.comment;
 	db.conn.getConnection((err, connect) => {
@@ -50,7 +50,7 @@ app.post("/gbook_save", (req, res) => {
 		}
 	});
 });
-*/
+
 // async/await 패턴
 /*
 async function getData(sql, vals) {
