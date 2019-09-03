@@ -1,0 +1,22 @@
+<script src="../js/jquery-3.4.1.min.js"></script>
+<script>
+// 공통함수
+function err(err) {
+	console.log(err);
+}
+
+// Ajax 함수
+async function getAjax(url) {
+	return await $.ajax({url});
+}
+
+getAjax("../json/sample.json").then(getUser).catch(err);
+getAjax("../json/score.json").then(getScore).catch(err);
+
+function getUser(data) {
+	console.log(data);
+}
+function getScore(data) {
+	console.log(data);
+}
+</script>
