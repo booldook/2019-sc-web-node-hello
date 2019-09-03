@@ -6,6 +6,7 @@ setTimeout(function(){
 }, 0);
 console.log("See You~");
 
+
 function getUser(cb) {
 	$.ajax({
 		url: "../json/sample.json",
@@ -18,4 +19,21 @@ function userCb(data) {
 }
 
 getUser(userCb);
+
+function aaa(str, cb) {
+	str = str + "B";	//AB
+	cb(str);
+}
+function bbb(str, cb) {
+	str = str + "C"; //ABC
+	cb(str);
+}
+function getTest() {
+	aaa("A", function(data){
+		bbb(data, function(data2) {
+			console.log(data2);
+		})
+	});
+}
+getTest();
 </script>
