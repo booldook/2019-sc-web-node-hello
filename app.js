@@ -6,6 +6,8 @@ const app = express();
 const bodyParser = require('body-parser');
 
 const db = require("./modules/mysql_conn");
+const conn = db.conn;
+const mysql = db.mysql;
 const util = require("./modules/util");
 
 app.listen(3000, () => {
@@ -28,6 +30,7 @@ app.get("/hello", (req, res) => {
 	res.send(html);
 });
 
+/*
 app.post("/gbook_save", (req, res) => {
 	var comment = req.body.comment;
 	db.conn.getConnection((err, connect) => {
@@ -44,6 +47,25 @@ app.post("/gbook_save", (req, res) => {
 			});
 		}
 	});
+});
+*/
+// async/await 패턴
+async function getData(sql, vals) {
+	return await conn.query(sql, vals);ㅐ
+}
+function err(err) {
+	console.log(err);
+}
+
+app.post("/gbook_save", (req, res) => {
+	var comment = req.body.comment;
+	var sql = "INSERT INTO gbook SET comment=?, wtime=?";
+	var vals = [comment, util.dspDate(new Date())];
+	var cb = function(data) {
+		console.log(data);
+		res.send("저장되었습니다.");
+	}
+	getData(sql, vals).then(cb).catch(err);
 });
 
 app.get("/gbook/:page", (req, res) => {
