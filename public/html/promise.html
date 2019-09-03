@@ -21,8 +21,8 @@ function getUser(url) {
 			success: function(data) {
 				resolve(data);
 			},
-			error: function(xhr) {
-				reject(xhr)
+			error: function(err) {
+				reject(err)
 			}
 		});
 	});
