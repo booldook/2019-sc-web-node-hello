@@ -1,0 +1,21 @@
+<script src="../js/jquery-3.4.1.min.js"></script>
+<script>
+console.log("Hello");
+setTimeout(function(){
+	console.log("World");
+}, 0);
+console.log("See You~");
+
+function getUser(cb) {
+	$.ajax({
+		url: "../json/sample.json",
+		success: cb
+	});
+}
+
+function userCb(data) {
+	console.log(data);
+}
+
+getUser(userCb);
+</script>

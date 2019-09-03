@@ -36,9 +36,9 @@ app.post("/gbook_save", (req, res) => {
 			var sql = 'INSERT INTO gbook SET comment=?, wtime=?';
 			var vals = [comment, util.dspDate(new Date())];
 			connect.query(sql, vals, (err, result) => {
+				connect.release();
 				if(err) res.send("데이터 저장에 실패했습니다.");
 				else {
-					console.log(result);
 					res.send("데이터가 처리되었습니다.");
 				}
 			});
