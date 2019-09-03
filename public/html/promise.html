@@ -1,0 +1,38 @@
+<script src="../js/jquery-3.4.1.min.js"></script>
+<script>
+/*
+// CallBack 구현
+function getUser(cb) {
+	$.ajax({
+		url: "../json/sample.json",
+		success: cb
+	});
+}
+
+getUser(function(data) {
+	console.log(data);
+});
+*/
+
+function getUser(url) {
+	return new Promise(function(resolve, reject){
+		$.ajax({
+			url,
+			success: function(data) {
+				resolve(data);
+			},
+			error: function(xhr) {
+				reject(xhr)
+			}
+		});
+	});
+}
+function errCatch(err) {
+	console.log(err);
+}
+function resultUser(data) {
+	console.log(data);
+}
+getUser("../json/sample.json").then(resultUser).catch(errCatch);
+
+</script>

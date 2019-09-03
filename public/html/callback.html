@@ -17,23 +17,22 @@ function getUser(cb) {
 function userCb(data) {
 	console.log(data);
 }
-
 getUser(userCb);
 
 function aaa(str, cb) {
-	str = str + "B";	//AB
+	str = str + " Hello";	// booldook Hello
 	cb(str);
 }
 function bbb(str, cb) {
-	str = str + "C"; //ABC
+	str = str + " World"; // booldook Hello World
 	cb(str);
 }
-function getTest() {
-	aaa("A", function(data){
+function getTest(name) {
+	aaa(name, function(data){
 		bbb(data, function(data2) {
 			console.log(data2);
 		})
 	});
 }
-getTest();
+getTest("booldook");
 </script>
