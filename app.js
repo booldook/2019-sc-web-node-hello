@@ -6,8 +6,10 @@ const app = express();
 const bodyParser = require('body-parser');
 
 const db = require("./modules/mysql_conn");
-const conn = db.conn;
 const mysql = db.mysql;
+const sqlPool = db.sqlPool;
+const sqlErr = db.sqlErr;
+const sqlExec = db.sqlExec;
 const util = require("./modules/util");
 
 app.listen(3000, () => {
@@ -77,19 +79,20 @@ app.get("/gbook/:page", (req, res) => {
 	var page = req.params.page;
 	res.send("현재 페이지는 "+page+"입니다.");
 });
-*/
+
 async function getData(sql, vals) {
 	const connect = await conn.getConnection(async conn => conn);
 	const data = await connect.query(sql, vals);
 	connect.release();
 	return data;
 }
+*/
 app.post("/gbook_save", (req, res) => {
 	const comment = req.body.comment;
 	const sql = "INSERT INTO gbook SET comment=?, wtime=?";
 	const vals = [comment, util.dspDate(new Date())];
-	getData(sql, vals).then((data) => {
+	sqlExec(sql, vals).then((data) => {
 		console.log(data);
 		res.send(data);
-	});
+	}).catch(sqlErr);
 });
