@@ -51,7 +51,11 @@ app.post("/gbook_save", (req, res) => {
 */
 // async/await 패턴
 async function getData(sql, vals) {
-	return await conn.query(sql, vals);ㅐ
+	const connect = await conn.getConnection(async conn => conn);
+	const data = await connect.query(sql, vals); 
+	// 결과를 주기전에 55라인에서 홀딩
+	connect.release();
+	return data;
 }
 function err(err) {
 	console.log(err);
