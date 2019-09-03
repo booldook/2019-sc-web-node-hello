@@ -19,4 +19,21 @@ function getUser(data) {
 function getScore(data) {
 	console.log(data);
 }
+
+
+// async 예제 2
+async function getUser() {
+	var user;
+	user = await $.ajax({
+		url: "../json/sample.json",
+	});
+	return user;
+}
+
+getUser().then(function(data){
+	console.log(data);
+});
+
+
+
 </script>

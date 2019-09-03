@@ -14,9 +14,10 @@ const sqlErr = err => {
 	console.log(err);
 }
 const sqlExec = async (sql, vals) => {
-	const connect = await sqlPool.getConnection(async conn => conn);
+	const connect = await sqlPool.getConnection(async a => a);
 	const data = await connect.query(sql, vals);
 	connect.release();
 	return data;
 }
+
 module.exports = {mysql, sqlPool, sqlErr, sqlExec}
