@@ -72,6 +72,7 @@ app.post("/gbook_save", (req, res) => {
 	const sql = "INSERT INTO gbook SET comment=?, wtime=?";
 	const vals = [comment, util.dspDate(new Date())];
 	sqlExec(sql, vals).then((data) => {
+		console.log(data);
 		res.redirect("/gbook");
 	}).catch(sqlErr);
 });
