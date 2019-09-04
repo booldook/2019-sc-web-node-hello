@@ -16,6 +16,8 @@ app.listen(3000, () => {
 // Router(길잡이)
 app.use(bodyParser.urlencoded({extended: true}));
 app.use("/", express.static("./public"));
+app.set("view engine", "pug");
+app.set("views", "./views");
 
 app.get("/hello", (req, res) => {
 	var id = req.query.userid;	//http://127.0.0.1:3000/hello?userid=booldook

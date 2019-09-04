@@ -1,0 +1,22 @@
+doctype html
+html(lang="ko")
+	head
+		meta(charset="utf-8")
+		meta(name="viewport", content="width=device-width, initial-scale=1.0")
+		meta(http-equiv="X-UA-Compatible", content="ie=edge")
+		title= title
+		link(href="/css/fa.min.css", rel="stylesheet")
+		link(href="/css/bootstrap.min.css", rel="stylesheet")
+		link(href="/css/base-bootstrap.css", rel="stylesheet")
+		link(href="/css/animate.css", rel="stylesheet")
+		link(href=`/css/${css}.css`, rel="stylesheet")
+		script(src="/js/jquery-3.4.1.min.js")
+		script(src="/js/popper.min.js")
+		script(src="/js/bootstrap.min.js")
+		script(src="/js/wow.min.js")
+	body
+		.container
+			.jumbotron= `${page} 페이지 입니다.`
+			.my-3.p-3.text-center.f-2 PUG로 작성된 페이지 입니다.
+		script(src="/js/util.js")
+		script(src="/js/page.js")
