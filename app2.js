@@ -37,7 +37,8 @@ app.get(["/page", "/page/:page"], (req, res) => {
 	if(!page) page = "미선택";
 	var title = "도서목록";
 	var css = "page";
-	var vals = {page, title, css};
+	var js = "page"
+	var vals = {page, title, css, js};
 	res.render("page", vals);
 });
 
