@@ -22,8 +22,8 @@ th, td {vertical-align: middle !important;}
 .f-25 {font-size: 2.5rem;}				/* 40px */
 .f-3 {font-size: 3rem;}						/* 48px */
 
-header a {color: white; text-decoration: none;}
-header a:link {color: white; text-decoration: none;}
-header a:visited {color: white; text-decoration: none;}
-header a:hover {color: beige; text-decoration: none;}
-header a:active {color: white; text-decoration: none;}
+.navi a {color: white; text-decoration: none;}
+.navi a:link {color: white; text-decoration: none;}
+.navi a:visited {color: white; text-decoration: none;}
+.navi a:hover {color: beige; text-decoration: none;}
+.navi a:active {color: white; text-decoration: none;}

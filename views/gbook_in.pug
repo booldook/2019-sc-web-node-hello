@@ -5,6 +5,8 @@ html(lang="ko")
 	body
 		include ./inc/navi.pug
 		.container.my-3
+			.jumbotron
+				h2= `${title}`
 			form(action="/gbook_save" method="post" name="gForm" onsubmit="return onSend(this);")
 				.form-inline
 					input.form-control.mr-2(type="text" name="comment" placeholder="한마디 남겨주세요.")

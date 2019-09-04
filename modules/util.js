@@ -3,7 +3,7 @@ const zp = n => {
 	return n;
 }
 const dspDate = (d, type) => {
-	var type = typeof type !== 'undefined' ?  type : 0;
+	var type = typeof type !== 'undefined' ?  type : "0";
 	var monthArr = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
 	var year = d.getFullYear() + "년 ";	// 2019
 	var month = monthArr[d.getMonth()] + " "; // 7 (0 ~ 11)
