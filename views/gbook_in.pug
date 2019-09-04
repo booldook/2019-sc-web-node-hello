@@ -1,0 +1,13 @@
+doctype html
+html(lang="ko")
+	head
+		include ./inc/header.pug
+	body
+		include ./inc/navi.pug
+		.container.my-3
+			form(action="/gbook_save" method="post" name="gForm" onsubmit="return onSend(this);")
+				.form-inline
+					input.form-control.mr-2(type="text" name="comment" placeholder="한마디 남겨주세요.")
+					button.btn.btn-primary(type="submit") 저장
+		include ./inc/footer.pug
+		include ./inc/script.pug

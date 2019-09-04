@@ -42,6 +42,23 @@ app.get(["/page", "/page/:page"], (req, res) => {
 	res.render("page", vals);
 });
 
+app.get(["/gbook", "/gbook/:type"], (req, res) => {
+	var type = req.params.type;
+	var vals = {css: "gbook", js: "gbook"}
+	var pug;
+	switch(type) {
+		case "in":
+			vals.title = "방명록 작성";
+			pug = "gbook_in";
+			break;
+		default:
+			vals.title = "방명록";
+			pug = "gbook";
+			break;
+	}
+	res.render(pug, vals);
+});
+
 // router 영역 - POST
 
 
