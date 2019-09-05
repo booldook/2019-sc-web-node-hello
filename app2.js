@@ -69,9 +69,11 @@ app.get(["/gbook", "/gbook/:type"], (req, res) => {
 
 // router 영역 - POST
 app.post("/gbook_save", (req, res) => {
+	const writer = req.body.writer;
+	const pw = req.body.pw;
 	const comment = req.body.comment;
-	const sql = "INSERT INTO gbook SET comment=?, wtime=?";
-	const vals = [comment, util.dspDate(new Date())];
+	const sql = "INSERT INTO gbook SET comment=?, wtime=?, writer=?, pw=?";
+	const vals = [comment, util.dspDate(new Date()), writer, pw];
 	sqlExec(sql, vals).then((data) => {
 		console.log(data);
 		res.redirect("/gbook");
