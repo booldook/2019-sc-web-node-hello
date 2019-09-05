@@ -55,6 +55,7 @@ app.get(["/gbook", "/gbook/:type"], (req, res) => {
 		default:
 			var sql = "SELECT * FROM gbook ORDER BY id DESC";
 			sqlExec(sql).then((data) => {
+				// console.log(data[0]);
 				vals.datas = data[0];
 				vals.title = "방명록";
 				pug = "gbook";
