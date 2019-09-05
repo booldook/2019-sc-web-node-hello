@@ -8,8 +8,23 @@ html(lang="ko")
 			.jumbotron
 				h2= `${title}`
 			form(action="/gbook_save" method="post" name="gForm" onsubmit="return onSend(this);")
-				.form-inline
-					input.form-control.mr-2(type="text" name="comment" placeholder="한마디 남겨주세요.")
+				ul.row.py-1
+					li.col-md-2
+						.text-primary 작성자
+					li.col-md-10
+						input.form-control(type="text" name="writer" placeholder="작성자") 
+				ul.row.py-1
+					li.col-md-2
+						.text-primary 비밀번호
+					li.col-md-10
+						input.form-control(type="password" name="pw") 
+				ul.row.py-1
+					li.col-md-2
+						.text-primary 남기실 말 
+					li.col-md-10
+						textarea.form-control(name="comment" style="height: 100px") 
+				div.border-top.my-3.p-3.text-center
 					button.btn.btn-primary(type="submit") 저장
+					button.btn.btn-danger(type="reset") 다시작성
 		include ./inc/footer.pug
 		include ./inc/script.pug
