@@ -42,6 +42,7 @@ app.get(["/page", "/page/:page"], (req, res) => {
 	res.render("page", vals);
 });
 
+// 방명록을 node.js 개발자가 전부 만드는 방식
 app.get(["/gbook", "/gbook/:type"], (req, res) => {
 	var type = req.params.type;
 	var vals = {css: "gbook", js: "gbook"}
@@ -66,6 +67,16 @@ app.get(["/gbook", "/gbook/:type"], (req, res) => {
 			break;
 	}
 });
+
+// 방명록을 Ajax 통신으로 데이터만 보내주는 방식
+app.get("/gbook_ajax", (req, res) => {
+	const title = "방명록 - Ajax";
+	const css = "gbook_ajax";
+	const js = "gbook_ajax"
+	const vals = {title, css, js};
+	res.render("gbook_ajax", vals);
+});
+
 
 // router 영역 - POST
 app.post("/gbook_save", (req, res) => {
