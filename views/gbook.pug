@@ -11,21 +11,24 @@ html(lang="ko")
 			table.table.table-bordered.table-hover.my-3.text-center
 				colgroup
 					col(width="8%")
+					col(width="15%")
+					col(width="18%")
 					col
-					col(width="20%")
 					col(width="15%")
 				thead.thead-dark
 					tr
 						th 번호
-						th 한마디
+						th 작성자
 						th 작성일
+						th 한마디
 						th 비고
 				tbody
 					each item in datas
 						tr
 							td= item.id
-							td.text-left= item.comment
+							td= item.writer
 							td= item.wtime
+							td.text-left= item.comment
 							td
 								button.btn.btn-info.btn-sm.mr-1 수정
 								button.btn.btn-danger.btn-sm 삭제
