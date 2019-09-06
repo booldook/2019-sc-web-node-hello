@@ -69,12 +69,26 @@ app.get(["/gbook", "/gbook/:type"], (req, res) => {
 });
 
 // 방명록을 Ajax 통신으로 데이터만 보내주는 방식
-app.get(["/gbook_ajax", "/gbook_ajax/:page"], (req, res) => {
+app.get("/gbook_ajax", (req, res) => {
 	const title = "방명록 - Ajax";
 	const css = "gbook_ajax";
 	const js = "gbook_ajax"
 	const vals = {title, css, js};
 	res.render("gbook_ajax", vals);
+});
+
+app.get("/gbook_ajax/:page", (req, res) => {
+	//var sql = "SELECT count(id) FROM gbook";
+
+	var page = req.params.page;
+	var grpCnt = 5;
+	var stRec = (page - 1) * grpCnt;
+	var sql = "SELECT * FROM gbook ORDER BY id DESC LIMIT ?, ?";
+	var vals = [stRec, grpCnt];
+	sqlExec(sql, vals).then((data) => {
+		console.log(data);
+		res.json(data);
+	}).catch(sqlErr);
 });
 
 // router 영역 - POST

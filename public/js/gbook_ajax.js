@@ -12,7 +12,7 @@ xhr.addEventListener('load', function() {
 */
 
 // ajax("/gbook_ajax", {page: 1})
-ajax("/gbook_ajax", "get", 1, function listCb(data) {
+ajax("/gbook_ajax", "get", 1, function(data) {
 	console.log(data);
 });
 
