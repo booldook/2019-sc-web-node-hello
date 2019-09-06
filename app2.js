@@ -69,14 +69,13 @@ app.get(["/gbook", "/gbook/:type"], (req, res) => {
 });
 
 // 방명록을 Ajax 통신으로 데이터만 보내주는 방식
-app.get("/gbook_ajax", (req, res) => {
+app.get(["/gbook_ajax", "/gbook_ajax/:page"], (req, res) => {
 	const title = "방명록 - Ajax";
 	const css = "gbook_ajax";
 	const js = "gbook_ajax"
 	const vals = {title, css, js};
 	res.render("gbook_ajax", vals);
 });
-
 
 // router 영역 - POST
 app.post("/gbook_save", (req, res) => {

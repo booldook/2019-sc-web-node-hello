@@ -7,5 +7,23 @@ html(lang="ko")
 		.container.my-3
 			.jumbotron
 				h2= title
+			table.gbook-tb.table.my-3.table-bordered.table-hover.text-center
+				colgroup
+					col(width="8%")
+					col(width="13%")
+					col(width="15%")
+					col
+					col(width="12%")
+				thead.thead-dark
+					tr
+						th 번호
+						th 작성자
+						th 작성일
+						th 한마디
+						th 관리
+				tbody
+
+			div.pagers
+
 		include ./inc/footer.pug
 		include ./inc/script.pug
