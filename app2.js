@@ -78,16 +78,20 @@ app.get("/gbook_ajax", (req, res) => {
 });
 
 app.get("/gbook_ajax/:page", (req, res) => {
-	//var sql = "SELECT count(id) FROM gbook";
-
 	var page = req.params.page;
 	var grpCnt = 5;
 	var stRec = (page - 1) * grpCnt;
-	var sql = "SELECT * FROM gbook ORDER BY id DESC LIMIT ?, ?";
-	var vals = [stRec, grpCnt];
-	sqlExec(sql, vals).then((data) => {
-		console.log(data);
-		res.json(data);
+	var vals = [];
+	var reData = [];
+	var sql = "SELECT count(id) FROM gbook";
+	sqlExec(sql).then((data) => {
+		reData.push(data[0]);
+		sql = "SELECT * FROM gbook ORDER BY id DESC LIMIT ?, ?";
+		vals = [stRec, grpCnt];
+		sqlExec(sql, vals).then((data) => {
+			reData.push(data[0]);
+			res.json(reData);
+		}).catch(sqlErr);
 	}).catch(sqlErr);
 });
 
