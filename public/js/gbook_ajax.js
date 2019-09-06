@@ -12,11 +12,11 @@ xhr.addEventListener('load', function() {
 */
 
 // ajax("/gbook_ajax", {page: 1})
-ajax("/gbook_ajax", "get", 1, function(data) {
-	var totCnt = data[0].totCnt;
+ajax("/gbook_ajax/1", "get", {grpCnt: 5}, function(data) {
+	var totCnt = data[0].totCnt;	//2
 	var rs = data[1];
 	var html = '';
-	
+
 	$(".gbook-tb > tbody").empty();
 	for(var i in rs) {
 		html  = '<tr>';

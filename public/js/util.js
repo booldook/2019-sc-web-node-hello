@@ -73,13 +73,14 @@ includeHTML();
 
 // 사용자 정의 ajax 함수
 function ajax(url, type, vals, cb) {
-	var data = {};
+	/*
 	if(typeof vals === Object) data = vals;	// req.query
 	else url = url + "/" + vals;	// req.params
+	*/
 	$.ajax({
 		type: type,
 		url: url,
-		data: data,
+		data: vals,
 		dataType: "json",
 		error: function(xhr, status, error) {
 			console.log(xhr, status, error);

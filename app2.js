@@ -77,9 +77,10 @@ app.get("/gbook_ajax", (req, res) => {
 	res.render("gbook_ajax", vals);
 });
 
+// http://127.0.0.1:3000/gbook_ajax/1?grpCnt=10
 app.get("/gbook_ajax/:page", (req, res) => {
-	var page = req.params.page;
-	var grpCnt = 5;		// 한페이지에 보여질 목록 갯수
+	var page = Number(req.params.page);			//1
+	var grpCnt = Number(req.query.grpCnt);	//10 한페이지에 보여질 목록 갯수
 	var stRec = (page - 1) * grpCnt;	//목록을 가져오기 위해 목록의 시작 INDEX
 	var vals = [];		// query에 보내질 ? 값
 	var reData = [];	// res.json(reData)
