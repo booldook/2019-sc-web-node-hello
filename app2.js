@@ -96,6 +96,7 @@ app.get("/gbook_ajax/:page", (req, res) => {
 	}).catch(sqlErr);
 });
 
+
 // router 영역 - POST
 app.post("/gbook_save", (req, res) => {
 	const writer = req.body.writer;
