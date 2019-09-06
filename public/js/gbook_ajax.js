@@ -16,6 +16,7 @@ ajax("/gbook_ajax", "get", 1, function(data) {
 	var totCnt = data[0].totCnt;
 	var rs = data[1];
 	var html = '';
+	
 	$(".gbook-tb > tbody").empty();
 	for(var i in rs) {
 		html  = '<tr>';
