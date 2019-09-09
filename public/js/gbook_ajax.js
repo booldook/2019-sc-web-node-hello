@@ -13,10 +13,18 @@ xhr.addEventListener('load', function() {
 
 // ajax("/gbook_ajax", {page: 1})
 ajax("/gbook_ajax/1", "get", {grpCnt: 5}, function(data) {
-	// console.log(data); 
-	// [{totCnt: 2}, [{id:2, writer:"홍길동", ...},{id:2, writer:"홍길동", ...}]]
-	var totCnt = data[0].totCnt;	//{totCnt: 2}
-	var rs = data[1];			// {id:2, writer:"홍길동", ...}
+	console.log(data); 
+	/*
+	{
+		totCnt: 2,
+		rs: [
+			{id:1, comment:"", wtime:"", writer:""},
+			{id:1, comment:"", wtime:"", writer:""}
+		]
+	}
+	*/
+	var totCnt = data.totCnt;	// {totCnt: 2}
+	var rs = data.rs;	// {id:2, writer:"홍길동", ...}
 	var html = '';
 
 	$(".gbook-tb > tbody").empty();
@@ -33,5 +41,7 @@ ajax("/gbook_ajax/1", "get", {grpCnt: 5}, function(data) {
 		html += '</tr>';
 		$(".gbook-tb > tbody").append(html);
 	}
+	// pagerMaker($pager, grpCnt, totCnt, page)
+	pagerMaker($(".pager"), 5, 3, totCnt, 1, function () {});
 });
 
