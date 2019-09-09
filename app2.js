@@ -86,19 +86,19 @@ app.get("/gbook_ajax/:page", (req, res) => {
 	var reData = [];	// res.json(reData)
 	var sql;
 	var result;
-	// 총 페이지 수 가져오기
-	const sqlFn = async () => {
+	(async () => {
+		// 총 페이지 수 가져오기
 		sql = "SELECT count(id) FROM gbook";
 		result = await sqlExec(sql);
 		reData.push({totCnt: result[0][0]["count(id)"]});
 
+		// 레코드 가져오기
 		sql = "SELECT * FROM gbook ORDER BY id DESC LIMIT ?, ?";
 		vals = [stRec, grpCnt];
 		result = await sqlExec(sql, vals);
-		reData.push(data[0]);
+		reData.push(result[0]);
 		res.json(reData);
-	}
-	sqlFn();
+	})();
 });
 
 
