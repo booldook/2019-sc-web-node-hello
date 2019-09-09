@@ -84,17 +84,21 @@ app.get("/gbook_ajax/:page", (req, res) => {
 	var stRec = (page - 1) * grpCnt;	//목록을 가져오기 위해 목록의 시작 INDEX
 	var vals = [];		// query에 보내질 ? 값
 	var reData = [];	// res.json(reData)
+	var sql;
+	var result;
 	// 총 페이지 수 가져오기
-	var sql = "SELECT count(id) FROM gbook";
-	sqlExec(sql).then((data) => {
-		reData.push({totCnt: data[0][0]["count(id)"]});
+	const sqlFn = async () => {
+		sql = "SELECT count(id) FROM gbook";
+		result = await sqlExec(sql);
+		reData.push({totCnt: result[0][0]["count(id)"]});
+
 		sql = "SELECT * FROM gbook ORDER BY id DESC LIMIT ?, ?";
 		vals = [stRec, grpCnt];
-		sqlExec(sql, vals).then((data) => {
-			reData.push(data[0]);
-			res.json(reData);
-		}).catch(sqlErr);
-	}).catch(sqlErr);
+		result = await sqlExec(sql, vals);
+		reData.push(data[0]);
+		res.json(reData);
+	}
+	sqlFn();
 });
 
 
