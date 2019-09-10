@@ -59,6 +59,7 @@ app.get(["/gbook", "/gbook/:type", "/gbook/:type/:id"], (req, res) => {
 	var vals = {css: "gbook", js: "gbook"}
 	var pug;
 	var sql;
+	var sqlVal;
 	var result;
 	switch(type) {
 		case "in":
@@ -76,8 +77,16 @@ app.get(["/gbook", "/gbook/:type", "/gbook/:type/:id"], (req, res) => {
 				sql = "SELECT count(id) FROM gbook";
 				result = await sqlExec(sql);
 				totCnt = result[0][0]["count(id)"];
-				const pagerVal = pager.pagerMaker({totCnt, page});
-				res.json(pagerVal);
+				const pagerVal = pager.pagerMaker({totCnt, page, grpCnt});
+				sql = "SELECT * FROM gbook ORDER BY id DESC limit ?, ?";
+				sqlVal = [pagerVal.stRec, pagerVal.grpCnt];
+				result = await sqlExec(sql, sqlVal);
+				vals.datas = result[0];
+				vals.title = "방명록";
+				vals.pager = pagerVal;
+				for(let item of vals.datas) item.wtime = util.dspDate(new Date(item.wtime));
+				pug = "gbook";
+				res.render(pug, vals);
 			})();
 
 			/*

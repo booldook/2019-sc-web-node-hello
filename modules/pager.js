@@ -8,6 +8,7 @@ const pagerMaker = (obj) => {
 	obj.edn = 0; // 세트중에 마지막페이지
 	obj.prev = 0; // < 를 클릭시 나타날 페이지 
 	obj.next = 0; // > 를 클릭시 나타날 페이지
+	obj.stRec = (obj.page - 1) * obj.grpCnt;
 	obj.prevShow = false;	// << 회색(false), 파란색(true)
 	obj.lastShow = false;	// >> 회색(false), 파란색(true)
 	obj.lastIndex = (Math.ceil(obj.cnt / obj.divCnt) - 1); // 페이지 세트의 마지막 index
