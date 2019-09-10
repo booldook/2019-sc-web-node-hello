@@ -138,6 +138,7 @@ function pagerMaker($pager, grpCnt, divCnt, total, page, cb) {
 	html += '<li class="page-item page-last ' + (lastShow ? "" : "disabled") + '" data-page="' + next + '">';
 	html += '<span class="page-link"><i class="fas fa-angle-double-right"></i></span>';
 	html += '</li>';
-	$(".pager").html(html);
+	$pager.html(html);
+	$(".page-item").css({"cursor":"pointer"});
 	$(".page-item").click(cb);
 }

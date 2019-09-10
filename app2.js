@@ -43,8 +43,20 @@ app.get(["/page", "/page/:page"], (req, res) => {
 });
 
 // 방명록을 node.js 개발자가 전부 만드는 방식
-app.get(["/gbook", "/gbook/:type"], (req, res) => {
+/*
+type: /in
+type: /li/1(id - page)
+type: /up/1(id)
+type: /rm/1(id)
+*/
+app.get(["/gbook", "/gbook/:type", "/gbook/:type/:id"], (req, res) => {
 	var type = req.params.type;
+	var id = req.params.id;
+	if(type === undefined) type = "li";
+	if(type === "li" && id === undefined) id = 1;
+	if(id === undefined && type !== "in") res.send("페이지 에러");
+	res.send(type + "/" + id);
+	/*
 	var vals = {css: "gbook", js: "gbook"}
 	var pug;
 	switch(type) {
@@ -66,6 +78,7 @@ app.get(["/gbook", "/gbook/:type"], (req, res) => {
 			}).catch(sqlErr);
 			break;
 	}
+	*/
 });
 
 // 방명록을 Ajax 통신으로 데이터만 보내주는 방식
