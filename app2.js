@@ -12,6 +12,7 @@ const bodyParser = require("body-parser");
 // modules 참조
 const util = require("./modules/util");
 const db = require("./modules/mysql_conn");
+const pager = require("./modules/pager");
 
 // 전역변수 선언
 const sqlPool = db.sqlPool;
@@ -75,9 +76,11 @@ app.get(["/gbook", "/gbook/:type", "/gbook/:type/:id"], (req, res) => {
 				sql = "SELECT count(id) FROM gbook";
 				result = await sqlExec(sql);
 				totCnt = result[0][0]["count(id)"];
+				const pagerVal = pager.pagerMaker(totCnt, grpCnt, divCnt, page);
+				res.json(pagerVal);
 			})();
 
-			
+			/*
 			sqlExec(sql).then((data) => {
 				// console.log(data[0]);
 				vals.datas = data[0];
@@ -87,6 +90,7 @@ app.get(["/gbook", "/gbook/:type", "/gbook/:type/:id"], (req, res) => {
 				// console.log(data[0][0]);
 				res.render(pug, vals);
 			}).catch(sqlErr);
+			*/
 			break;
 		default:
 			res.redirect("/404.html");
