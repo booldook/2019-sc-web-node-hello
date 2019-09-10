@@ -44,29 +44,40 @@ app.get(["/page", "/page/:page"], (req, res) => {
 
 // 방명록을 node.js 개발자가 전부 만드는 방식
 /*
-type: /in
-type: /li/1(id - page)
-type: /up/1(id)
-type: /rm/1(id)
+type: /in - 방명록 작성
+type: /li/1(id - page) - 방명록 리스트 보기
+type: /up/1(id) - 선택된 방명록 수정
+type: /rm/1(id) - 선택된 방명록 삭제
 */
 app.get(["/gbook", "/gbook/:type", "/gbook/:type/:id"], (req, res) => {
 	var type = req.params.type;
 	var id = req.params.id;
 	if(type === undefined) type = "li";
 	if(type === "li" && id === undefined) id = 1;
-	if(id === undefined && type !== "in") res.send("페이지 에러");
-	res.send(type + "/" + id);
-	/*
+	if(id === undefined && type !== "in") res.redirect("/404.html");
 	var vals = {css: "gbook", js: "gbook"}
 	var pug;
+	var sql;
+	var result;
 	switch(type) {
 		case "in":
 			vals.title = "방명록 작성";
 			pug = "gbook_in";
 			res.render(pug, vals);
 			break;
-		default:
-			var sql = "SELECT * FROM gbook ORDER BY id DESC";
+		case "li":
+			(async () => {
+				var totCnt = 0;
+				var page = id;
+				var divCnt = 3;
+				var grpCnt = req.query.grpCnt;
+				if(grpCnt === undefined || typeof grpCnt !== "number") grpCnt = 5;
+				sql = "SELECT count(id) FROM gbook";
+				result = await sqlExec(sql);
+				totCnt = result[0][0]["count(id)"];
+			})();
+
+			
 			sqlExec(sql).then((data) => {
 				// console.log(data[0]);
 				vals.datas = data[0];
@@ -77,8 +88,10 @@ app.get(["/gbook", "/gbook/:type", "/gbook/:type/:id"], (req, res) => {
 				res.render(pug, vals);
 			}).catch(sqlErr);
 			break;
+		default:
+			res.redirect("/404.html");
+			break;
 	}
-	*/
 });
 
 // 방명록을 Ajax 통신으로 데이터만 보내주는 방식
