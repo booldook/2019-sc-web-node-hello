@@ -88,18 +88,6 @@ app.get(["/gbook", "/gbook/:type", "/gbook/:type/:id"], (req, res) => {
 				pug = "gbook";
 				res.render(pug, vals);
 			})();
-
-			/*
-			sqlExec(sql).then((data) => {
-				// console.log(data[0]);
-				vals.datas = data[0];
-				vals.title = "방명록";
-				pug = "gbook";
-				for(let item of data[0]) item.wtime = util.dspDate(new Date(item.wtime));
-				// console.log(data[0][0]);
-				res.render(pug, vals);
-			}).catch(sqlErr);
-			*/
 			break;
 		default:
 			res.redirect("/404.html");
