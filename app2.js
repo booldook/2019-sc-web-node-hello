@@ -76,7 +76,7 @@ app.get(["/gbook", "/gbook/:type", "/gbook/:type/:id"], (req, res) => {
 				sql = "SELECT count(id) FROM gbook";
 				result = await sqlExec(sql);
 				totCnt = result[0][0]["count(id)"];
-				const pagerVal = pager.pagerMaker(totCnt, grpCnt, divCnt, page);
+				const pagerVal = pager.pagerMaker({totCnt, page});
 				res.json(pagerVal);
 			})();
 
