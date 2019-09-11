@@ -6,8 +6,8 @@ const pagerMaker = (obj) => {
 	obj.cnt = Math.ceil(obj.totCnt / obj.grpCnt); // 전체 페이지 개수
 	obj.stn = 0; // 세트중에 시작페이지
 	obj.edn = 0; // 세트중에 마지막페이지
-	obj.prev = 0; // < 를 클릭시 나타날 페이지 
-	obj.next = 0; // > 를 클릭시 나타날 페이지
+	obj.prev = 0; // << 를 클릭시 나타날 전세트 페이지 
+	obj.next = 0; // >> 를 클릭시 나타날 전세트 페이지
 	obj.stRec = (obj.page - 1) * obj.grpCnt;
 	obj.prevShow = false;	// << 회색(false), 파란색(true)
 	obj.lastShow = false;	// >> 회색(false), 파란색(true)

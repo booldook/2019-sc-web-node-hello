@@ -17,3 +17,8 @@ function onSend(f) {
 	}
 	return true;
 }
+
+$(".page-item").click(function(){
+	var n = $(this).data("page");
+	if(n !== undefined) location.href = "/gbook/li/"+n;
+});
