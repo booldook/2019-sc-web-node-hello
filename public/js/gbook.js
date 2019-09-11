@@ -1,5 +1,4 @@
 function onSend(f) {
-	console.log(f);
 	if(f.writer.value.trim() === "") {
 		alert("작성자를 입력하세요.");
 		f.writer.focus();
