@@ -2,20 +2,22 @@ ul.pager.my-4.pagination.justify-content-center
 
 	if pager.prevShow
 		li.page-item.page-first(data-page=`${pager.prev}`, style="cursor: pointer;")
+			span.page-link
+				i.fas.fa-angle-double-left
 	else
 		li.page-item.page-first.disabled
-		
 			span.page-link
 				i.fas.fa-angle-double-left
 
 	if pager.page > 1
 		li.page-item.page-prev(data-page=`${pager.page - 1}`, style="cursor: pointer;")
-	else
-		li.page-item.page-prev.disabled
-		
 			span.page-link
 				i.fas.fa-angle-left
-
+	else
+		li.page-item.page-prev.disabled
+			span.page-link
+				i.fas.fa-angle-left
+			
 	- for(var i=pager.stn; i<=pager.edn; i++) {
 		if pager.page == i
 			li.page-item.page-ct.active(data-page=`${i}`, style="cursor: pointer;")
@@ -27,16 +29,21 @@ ul.pager.my-4.pagination.justify-content-center
 
 	if pager.page < pager.cnt
 		li.page-item.page-next(data-page=`${pager.page + 1}`, style="cursor: pointer;")
-	else
-		li.page-item.page-next.disabled
-
 			span.page-link
 				i.fas.fa-angle-right
+	else
+		li.page-item.page-next.disabled
+			span.page-link
+				i.fas.fa-angle-right
+			
 
 	if pager.lastShow
 		li.page-item.page-last(data-page=`${pager.next}`, style="cursor: pointer;")
+			span.page-link
+				i.fas.fa-angle-double-right 
 	else
 		li.page-item.page-last.disabled
-
 			span.page-link
-				i.fas.fa-angle-double-right
+				i.fas.fa-angle-double-right 
+
+			
