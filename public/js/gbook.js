@@ -30,10 +30,12 @@ $("#gbook-tb td").not(":last-child").click(function(){
 		data: {id: id},
 		dataType: "json",
 		success: function (res) {
-			console.log(res);
+			$("#gbook-modal tr").eq(0).children("td").eq(1).html(res.writer);
+			$("#gbook-modal tr").eq(1).children("td").eq(1).html(dspDate(new Date(res.wtime)));
+			$("#gbook-modal tr").eq(2).children("td").eq(1).html(res.comment);
+			$("#gbook-modal").modal("show");
 		}
 	});
-	//$("#gbook-modal").modal("show");
 });
 
 /*
