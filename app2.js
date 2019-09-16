@@ -95,6 +95,30 @@ app.get(["/gbook", "/gbook/:type", "/gbook/:type/:id"], (req, res) => {
 	}
 });
 
+app.get("/api/:type", (req, res) => {
+	var type = req.params.type;
+	var id = req.query.id;
+	var sql;
+	var vals = [];
+	var result;
+	switch(type) {
+		case "modalData":
+			if(id === undefined) req.redirect("/500.html");
+			else {
+				sql = "SELECT * FROM gbook WHERE id=?";
+				vals.push(id);
+				(async () => {
+					result = await sqlExec(sql, vals);
+					res.json(result);
+				})();
+			}
+			break;
+		default:
+			res.redirect("/404.html");
+			break;
+	}
+});
+
 // 방명록을 Ajax 통신으로 데이터만 보내주는 방식
 app.get("/gbook_ajax", (req, res) => {
 	const title = "방명록 - Ajax";

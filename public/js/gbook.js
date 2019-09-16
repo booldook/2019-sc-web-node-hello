@@ -23,7 +23,8 @@ $(".page-item").click(function(){
 });
 
 $("#gbook-tb td").not(":last-child").click(function(){
-	$("#gbook-modal").modal("show");
+	
+	//$("#gbook-modal").modal("show");
 });
 
 /*
