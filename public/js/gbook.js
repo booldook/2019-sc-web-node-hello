@@ -22,6 +22,7 @@ $(".page-item").click(function(){
 	if(n !== undefined) location.href = "/gbook/li/"+n;
 });
 
+// 상세내용보기 - modal POPUP
 $("#gbook-tb td").not(":last-child").click(function(){
 	var id = $(this).parent().children("td").eq(0).text();
 	$.ajax({
@@ -37,6 +38,15 @@ $("#gbook-tb td").not(":last-child").click(function(){
 		}
 	});
 });
+
+// 삭제
+$(".btRev").click(function(){
+	var id = $(this).parent().parent().children("td").eq(0).text();
+	$("#remove-modal").modal("show");
+});
+
+
+
 
 /*
 $("#bt-close").click(function(){

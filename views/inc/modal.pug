@@ -16,3 +16,21 @@
 								div(style="min-height: 200px;") 
 			.modal-footer.justify-content-center
 				button#bt-close.btn.btn-primary(data-dismiss="modal") 닫기
+
+#remove-modal.modal.fade(tabindex="-1", role="dialog", aria-hidden="true")
+	.modal-dialog.modal-dialog-centered(role="document")
+		.modal-content
+			.modal-header
+				h5.modal-title 데이터 삭제
+				button.close(type="button", data-dismiss="modal")
+					span(aria-hidden="true") &times;
+			.modal-body
+				form(method="post", action="/api/remove", name="removeForm")
+					input(type="hidden", name="id")
+					.row.align-items-center.py-3
+						.col-3.font-weight-bold 패스워드:
+						.col-9
+							input.form-control(type="password" name="pw")
+					.div.text-center
+						button#bt-close.btn.btn-danger.sendRev 삭제
+						button#bt-close.btn.btn-primary(type="button", data-dismiss="modal") 닫기

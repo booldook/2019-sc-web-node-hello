@@ -98,6 +98,7 @@ app.get(["/gbook", "/gbook/:type", "/gbook/:type/:id"], (req, res) => {
 app.get("/api/:type", (req, res) => {
 	var type = req.params.type;
 	var id = req.query.id;
+	var pw = req.query.pw;
 	var sql;
 	var vals = [];
 	var result;
@@ -113,11 +114,16 @@ app.get("/api/:type", (req, res) => {
 				})();
 			}
 			break;
-		case "delete":
-			if(id == undefined) req.redirect("/500.html");
+		case "remove":
+			if(id == undefined || pw === undefined) req.redirect("/500.html");
 			else {
-				sql = "DELETE FROM gbook WHERE id=?";
+				sql = "DELETE FROM gbook WHERE id=? AND pw=?";
 				vals.push(id);
+				vals.push(pw);
+				(async () => {
+					result = sqlExec(sql, vals);
+					res.json(result);
+				})();
 			} 
 			break;
 		default:
