@@ -42,6 +42,10 @@ $("#gbook-tb td").not(":last-child").click(function(){
 // 삭제
 $(".btRev").click(function(){
 	var id = $(this).parent().parent().children("td").eq(0).text();
+	//$("form[name='removeForm']").find("input[name='id']")
+	$("#remove-modal").find("input[name='id']").val(id);
+	$("#remove-modal").find("input[name='pw']").val('');
+	$("#remove-modal").find("input[name='pw']").focus(); // 보류
 	$("#remove-modal").modal("show");
 });
 
