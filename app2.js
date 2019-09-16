@@ -113,6 +113,13 @@ app.get("/api/:type", (req, res) => {
 				})();
 			}
 			break;
+		case "delete":
+			if(id == undefined) req.redirect("/500.html");
+			else {
+				sql = "DELETE FROM gbook WHERE id=?";
+				vals.push(id);
+			} 
+			break;
 		default:
 			res.redirect("/404.html");
 			break;
