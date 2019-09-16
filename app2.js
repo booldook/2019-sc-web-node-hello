@@ -109,7 +109,7 @@ app.get("/api/:type", (req, res) => {
 				vals.push(id);
 				(async () => {
 					result = await sqlExec(sql, vals);
-					res.json(result);
+					res.json(result[0][0]);
 				})();
 			}
 			break;

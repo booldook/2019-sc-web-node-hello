@@ -23,7 +23,16 @@ $(".page-item").click(function(){
 });
 
 $("#gbook-tb td").not(":last-child").click(function(){
-	
+	var id = $(this).parent().children("td").eq(0).text();
+	$.ajax({
+		type: "get",
+		url: "/api/modalData",
+		data: {id: id},
+		dataType: "json",
+		success: function (res) {
+			console.log(res);
+		}
+	});
 	//$("#gbook-modal").modal("show");
 });
 
