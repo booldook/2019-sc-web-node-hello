@@ -21,3 +21,11 @@ $(".page-item").click(function(){
 	var n = $(this).data("page");
 	if(n !== undefined) location.href = "/gbook/li/"+n;
 });
+
+$("#gbook-tb td").click(function(){
+	$("#gbook-modal").modal("show");
+});
+
+$("#bt-close").click(function(){
+	$("#gbook-modal").modal("hide");
+});
