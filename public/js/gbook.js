@@ -4,8 +4,8 @@ function onSend(f) {
 		f.writer.focus();
 		return false;
 	}
-	if(f.pw.value.trim().length > 16 || f.pw.value.trim().length < 8) {
-		alert("비밀번호는 8 ~ 16 자로 입력하세요.");
+	if(f.pw.value.trim().length > 16 || f.pw.value.trim().length < 6) {
+		alert("비밀번호는 6 ~ 16 자로 입력하세요.");
 		f.pw.focus();
 		return false;
 	}
@@ -22,8 +22,8 @@ function onRev(f) {
 		alert("삭제할 데이터의 id가 필요합니다.");
 		return false;
 	}
-	if(f.pw.value.trim().length > 16 || f.pw.value.trim().length < 8) {
-		alert("비밀번호는 8 ~ 16 자 입니다.");
+	if(f.pw.value.trim().length > 16 || f.pw.value.trim().length < 6) {
+		alert("비밀번호는 6 ~ 16 자 입니다.");
 		f.pw.focus();
 		return false;
 	}

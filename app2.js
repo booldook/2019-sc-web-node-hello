@@ -116,24 +116,48 @@ app.get("/api/:type", (req, res) => {
 				})();
 			}
 			break;
-		case "remove":
-			if(id == undefined || pw === undefined) req.redirect("/500.html");
-			else {
-				sql = "DELETE FROM gbook WHERE id=? AND pw=?";
-				vals.push(id);
-				vals.push(pw);
-				(async () => {
-					result = sqlExec(sql, vals);
-					res.json(result);
-				})();
-			} 
-			break;
 		default:
 			res.redirect("/404.html");
 			break;
 	}
 });
 
+app.post("/api/:type", (req, res) => {
+	var type = req.params.type;
+	var id = req.body.id;
+	var pw = req.body.pw;
+	var sql = "";
+	var vals = [];
+	var result;
+	switch(type) {
+		case "remove":
+			if(id === undefined || pw === undefined) res.redirect("/500.html");
+			else {
+				sql = "DELETE FROM gbook WHERE id=? AND pw=?";
+				vals.push(id);
+				vals.push(pw);
+				(async () => {
+					result = await sqlExec(sql, vals);
+					if(result[0].affectedRows == 1) {
+
+					}
+					else {
+
+					}
+					//res.json(result);
+				})();
+			}
+			break;
+		default :
+			res.redirect("/404.html");
+			break;
+	}
+});
+
+
+
+
+// 방명록 Ajax로 구현
 // 방명록을 Ajax 통신으로 데이터만 보내주는 방식
 app.get("/gbook_ajax", (req, res) => {
 	const title = "방명록 - Ajax";

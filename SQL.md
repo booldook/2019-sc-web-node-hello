@@ -43,7 +43,7 @@ SELECT count(id) FROM gbook
 
 ## 데이터 삭제
 ```sql
--- 삭제 SQL - WHERE절이 없으면 모든 데이터가 삭제되므로 박스 구해야함.
+-- 삭제 SQL - WHERE절이 없으면 모든 데이터가 삭제되므로 박스 구해야 함.
 DELETE FROM 테이블명 WHERE 조건
 
 DELETE FROM gbook WHERE id=5
