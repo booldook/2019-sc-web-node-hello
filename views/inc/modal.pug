@@ -27,6 +27,7 @@
 			.modal-body
 				form(method="post", action="/api/remove", name="removeForm", onsubmit="return onRev(this);")
 					input(type="hidden", name="id")
+					input(type="hidden", name="page", value=`${pager.page}`)
 					.row.align-items-center.py-3
 						.col-3.font-weight-bold 패스워드:
 						.col-9

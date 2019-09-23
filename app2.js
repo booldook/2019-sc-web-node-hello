@@ -126,6 +126,7 @@ app.post("/api/:type", (req, res) => {
 	var type = req.params.type;
 	var id = req.body.id;
 	var pw = req.body.pw;
+	var page = req.body.page;
 	var sql = "";
 	var vals = [];
 	var result;
@@ -139,7 +140,7 @@ app.post("/api/:type", (req, res) => {
 				vals.push(pw);
 				(async () => {
 					result = await sqlExec(sql, vals);
-					if(result[0].affectedRows == 1) res.redirect("/gbook");
+					if(result[0].affectedRows == 1) res.redirect("/gbook/li/"+page);
 					else {
 						html = `
 						<meta charset="utf-8">
