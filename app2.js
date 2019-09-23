@@ -129,6 +129,7 @@ app.post("/api/:type", (req, res) => {
 	var sql = "";
 	var vals = [];
 	var result;
+	var html;
 	switch(type) {
 		case "remove":
 			if(id === undefined || pw === undefined) res.redirect("/500.html");
@@ -138,11 +139,16 @@ app.post("/api/:type", (req, res) => {
 				vals.push(pw);
 				(async () => {
 					result = await sqlExec(sql, vals);
-					if(result[0].affectedRows == 1) {
-
-					}
+					if(result[0].affectedRows == 1) res.redirect("/gbook");
 					else {
-
+						html = `
+						<meta charset="utf-8">
+						<script>
+							alert("패스워드가 올바르지 않습니다.");
+							history.go(-1); //이전페이지로 돌아가기
+						</script>
+						`;
+						res.send(html);
 					}
 					//res.json(result);
 				})();
