@@ -17,6 +17,20 @@ function onSend(f) {
 	return true;
 }
 
+function onRev(f) {
+	if(f.id.value.trim() === "") {
+		alert("삭제할 데이터의 id가 필요합니다.");
+		return false;
+	}
+	if(f.pw.value.trim().length > 16 || f.pw.value.trim().length < 8) {
+		alert("비밀번호는 8 ~ 16 자 입니다.");
+		f.pw.focus();
+		return false;
+	}
+	return true;
+}
+
+
 $(".page-item").click(function(){
 	var n = $(this).data("page");
 	if(n !== undefined) location.href = "/gbook/li/"+n;

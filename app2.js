@@ -95,6 +95,8 @@ app.get(["/gbook", "/gbook/:type", "/gbook/:type/:id"], (req, res) => {
 	}
 });
 
+// http://127.0.0.1/api/modalData?id=2
+// http://127.0.0.1/api/remove?id=2&pw=11111111
 app.get("/api/:type", (req, res) => {
 	var type = req.params.type;
 	var id = req.query.id;
