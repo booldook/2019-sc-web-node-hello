@@ -53,6 +53,7 @@ type: /rm/1(id) - 선택된 방명록 삭제
 app.get(["/gbook", "/gbook/:type", "/gbook/:type/:id"], (req, res) => {
 	var type = req.params.type;
 	var id = req.params.id;
+	var chk = req.query.chk;
 	if(type === undefined) type = "li";
 	if(type === "li" && id === undefined) id = 1;
 	if(id === undefined && type !== "in") res.redirect("/404.html");
@@ -84,6 +85,7 @@ app.get(["/gbook", "/gbook/:type", "/gbook/:type/:id"], (req, res) => {
 				vals.datas = result[0];
 				vals.title = "방명록";
 				vals.pager = pagerVal;
+				vals.chk = chk;
 				for(let item of vals.datas) item.wtime = util.dspDate(new Date(item.wtime));
 				pug = "gbook";
 				res.render(pug, vals);
@@ -140,7 +142,9 @@ app.post("/api/:type", (req, res) => {
 				vals.push(pw);
 				(async () => {
 					result = await sqlExec(sql, vals);
-					if(result[0].affectedRows == 1) res.redirect("/gbook/li/"+page);
+					if(result[0].affectedRows == 1) {
+						res.redirect("/gbook/li/"+page+"?chk=remove");
+					}
 					else {
 						html = `
 						<meta charset="utf-8">
