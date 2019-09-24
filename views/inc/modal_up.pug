@@ -1,0 +1,24 @@
+#update-modal.modal.fade(tabindex="-1", role="dialog", aria-hidden="true")
+	.modal-dialog.modal-dialog-centered(role="document")
+		.modal-content
+			.modal-body
+				form(action="/api/update", method="post", name="upForm", onsubmit="return onChg(this)")
+					table.table.table-hover
+						tbody
+							tr
+								td.bg-dark.text-light.text-center 작성자
+								td
+									input.form-control(name="writer")
+							tr
+								td.bg-dark.text-light.text-center 비밀번호
+								td
+									input.form-control(name="pw", type="password")
+							tr
+								td.bg-dark.text-light.text-center 내용
+								td 
+									textarea.form-text(name="comment", style="height: 200px;")
+					.my-3.text-center
+						button.btn.btn-success 수정
+						button.btn.btn-danger(type="reset") 다시작성
+			.modal-footer.justify-content-center
+				button#bt-close.btn.btn-primary(data-dismiss="modal") 닫기
