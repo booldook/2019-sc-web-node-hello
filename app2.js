@@ -53,7 +53,6 @@ type: /rm/1(id) - 선택된 방명록 삭제
 app.get(["/gbook", "/gbook/:type", "/gbook/:type/:id"], (req, res) => {
 	var type = req.params.type;
 	var id = req.params.id;
-	var chk = req.query.chk;
 	if(type === undefined) type = "li";
 	if(type === "li" && id === undefined) id = 1;
 	if(id === undefined && type !== "in") res.redirect("/404.html");
@@ -85,7 +84,6 @@ app.get(["/gbook", "/gbook/:type", "/gbook/:type/:id"], (req, res) => {
 				vals.datas = result[0];
 				vals.title = "방명록";
 				vals.pager = pagerVal;
-				vals.chk = chk;
 				for(let item of vals.datas) item.wtime = util.dspDate(new Date(item.wtime));
 				pug = "gbook";
 				res.render(pug, vals);
@@ -142,19 +140,17 @@ app.post("/api/:type", (req, res) => {
 				vals.push(pw);
 				(async () => {
 					result = await sqlExec(sql, vals);
+					html = '<meta charset="utf-8"><script>';
 					if(result[0].affectedRows == 1) {
-						res.redirect("/gbook/li/"+page+"?chk=remove");
+						html += 'alert("삭제되었습니다.");';
+						html += 'location.href = "/gbook/li/'+page+'";';
 					}
 					else {
-						html = `
-						<meta charset="utf-8">
-						<script>
-							alert("패스워드가 올바르지 않습니다.");
-							history.go(-1); //이전페이지로 돌아가기
-						</script>
-						`;
-						res.send(html);
+						html += 'alert("비밀번호가 올바르지 않습니다.");';
+						html += 'history.go(-1)';
 					}
+					html += '</script>';
+					res.send(html);
 					//res.json(result);
 				})();
 			}
