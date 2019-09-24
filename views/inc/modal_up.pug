@@ -3,6 +3,7 @@
 		.modal-content
 			.modal-body
 				form(action="/api/update", method="post", name="upForm", onsubmit="return onChg(this)")
+					input(type="hidden", name="id")
 					table.table.table-hover
 						tbody
 							tr
@@ -13,10 +14,11 @@
 								td.bg-dark.text-light.text-center 비밀번호
 								td
 									input.form-control(name="pw", type="password")
+									span.text-danger * 글 작성시 입력한 비밀번호를 넣어주세요.
 							tr
 								td.bg-dark.text-light.text-center 내용
 								td 
-									textarea.form-text(name="comment", style="height: 200px;")
+									textarea.form-control(name="comment", style="height: 200px;")
 					.my-3.text-center
 						button.btn.btn-success 수정
 						button.btn.btn-danger(type="reset") 다시작성
