@@ -4,6 +4,7 @@
 			.modal-body
 				form(action="/api/update", method="post", name="upForm", onsubmit="return onSend(this)")
 					input(type="hidden", name="id")
+					input(type="hidden", name="page", value=`${pager.page}`)
 					table.table.table-hover
 						tbody
 							tr

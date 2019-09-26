@@ -165,7 +165,20 @@ app.post("/api/:type", (req, res) => {
 				vals.push(comment);
 				vals.push(id);
 				vals.push(pw);
-				//()();
+				(async () => {
+					result = await sqlExec(sql, vals);
+					html = '<meta charset="utf-8"><script>';
+					if(result[0].affectedRows == 1) {
+						html += 'alert("수정되었습니다.");';
+						html += 'location.href = "/gbook/li/'+page+'";';
+					}
+					else {
+						html += 'alert("비밀번호가 올바르지 않습니다.");';
+						html += 'history.go(-1)';
+					}
+					html += '</script>';
+					res.send(html);
+				})();
 			}
 			break;
 		default :
