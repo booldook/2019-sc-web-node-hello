@@ -106,7 +106,7 @@ app.get("/api/:type", (req, res) => {
 	var result;
 	switch(type) {
 		case "modalData":
-			if(id === undefined) req.redirect("/500.html");
+			if(id === undefined) res.redirect("/500.html");
 			else {
 				sql = "SELECT * FROM gbook WHERE id=?";
 				vals.push(id);

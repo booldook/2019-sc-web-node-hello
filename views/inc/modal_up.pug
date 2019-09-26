@@ -2,7 +2,7 @@
 	.modal-dialog.modal-dialog-centered(role="document")
 		.modal-content
 			.modal-body
-				form(action="/api/update", method="post", name="upForm", onsubmit="return onChg(this)")
+				form(action="/api/update", method="post", name="upForm", onsubmit="return onSend(this)")
 					input(type="hidden", name="id")
 					table.table.table-hover
 						tbody
@@ -21,6 +21,6 @@
 									textarea.form-control(name="comment", style="height: 200px;")
 					.my-3.text-center
 						button.btn.btn-success 수정
-						button.btn.btn-danger(type="reset") 다시작성
+						button.btn.btn-danger(type="button", onclick="onReset();") 다시작성
 			.modal-footer.justify-content-center
 				button#bt-close.btn.btn-primary(data-dismiss="modal") 닫기

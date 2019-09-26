@@ -67,6 +67,15 @@ $(".btRev").click(function(){
 $(".btChg").click(function(){
 	var id = $(this).parent().parent().children("td").eq(0).text();
 	$("#update-modal").find("input[name='id']").val(id);
+	upAjax(id);
+});
+
+function onReset() {
+	var id = $("form[name='upForm']").find("input[name='id']").val();
+	upAjax(id);
+}
+
+function upAjax(id) {
 	$.ajax({
 		type: "get",
 		url: "/api/modalData",
@@ -78,15 +87,8 @@ $(".btChg").click(function(){
 			$("#update-modal").modal("show");
 		}
 	});
-});
-
-function onChg(f) {
-	
 }
 
 
-/*
-$("#bt-close").click(function(){
-	$("#gbook-modal").modal("hide");
-});
-*/
+// $(f).find("input[name='writer']").val().trim() <-- jQuery
+// f.writer.value.trim() <-- javascript
