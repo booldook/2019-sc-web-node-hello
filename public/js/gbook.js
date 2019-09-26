@@ -59,8 +59,11 @@ $(".btRev").click(function(){
 	//$("form[name='removeForm']").find("input[name='id']")
 	$("#remove-modal").find("input[name='id']").val(id);
 	$("#remove-modal").find("input[name='pw']").val('');
-	$("#remove-modal").find("input[name='pw']").focus(); // 보류
 	$("#remove-modal").modal("show");
+});
+
+$("#remove-modal").on("shown.bs.modal", function(){
+	$("#remove-modal").find("input[name='pw']").focus();
 });
 
 // 수정기능
