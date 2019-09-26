@@ -50,3 +50,9 @@ DELETE FROM gbook WHERE id=5
 ```
 
 ## 데이터 수정
+```sql
+-- 수정 SQL - WHERE절이 없으면 모든 데이터가 같이 수정되므로 박스 필요.
+UPDATE 테이블명 SET 필드명1='값', 필드명2='값' WHERE 조건;
+
+UPDATE gbook SET writer='홍길동', comment='ㅎㅎㅎ' WHERE id=5;
+```

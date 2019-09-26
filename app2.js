@@ -126,6 +126,8 @@ app.post("/api/:type", (req, res) => {
 	var type = req.params.type;
 	var id = req.body.id;
 	var pw = req.body.pw;
+	var writer = req.body.writer;
+	var comment = req.body.comment;
 	var page = req.body.page;
 	var sql = "";
 	var vals = [];
@@ -153,6 +155,17 @@ app.post("/api/:type", (req, res) => {
 					res.send(html);
 					//res.json(result);
 				})();
+			}
+			break;
+		case "update":
+			if(id === undefined || pw === undefined) res.redirect("/500.html");
+			else {
+				sql = "UPDATE gbook SET writer=?, comment=? WHERE id=? AND pw=?";
+				vals.push(writer);
+				vals.push(comment);
+				vals.push(id);
+				vals.push(pw);
+				//()();
 			}
 			break;
 		default :
