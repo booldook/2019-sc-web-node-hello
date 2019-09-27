@@ -1,9 +1,10 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-const multer = require("multer");
 const bodyParser = require("body-parser");
 const util = require("./modules/util");
+const multer = require("multer");
+const upload = multer({ dest: './uploads/sample/' });
 
 // 서버실행
 app.listen(3000, () => {
@@ -31,4 +32,10 @@ app.get(["/multer", "/multer/:type"], (req, res) => {
 			res.send("/404.html");
 			break;
 	}
+});
+
+app.post("/multer_write", upload.single("upfile"), (req, res) => {
+	var title = req.body.title;
+	res.send("업로드 되었습니다.");
+	//var file = req.body.upfile;
 });
