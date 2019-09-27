@@ -4,7 +4,26 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const util = require("./modules/util");
 const multer = require("multer");
-const upload = multer({ dest: './uploads/sample/' });
+const splitName = (file) => {
+	// var fileName = fileArr.join(".");	// ["a", "b", "jpg"] -> "a.b.jpg"
+	var arr = file.split(".");	// "a.b.jpg" -> ["a", "b", "jpg"]
+	var obj = {};
+	obj.time = Date.now();
+	obj.ext = arr.pop();	// arr = ["a", "b"]
+	obj.name = obj.time + "-" + Math.floor(Math.random() * 90 + 10);
+	obj.saveName = obj.name + "." + obj.ext;
+	return obj;
+}
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, 'public/uploads/sample'));
+  },
+  filename: (req, file, cb) => {
+		var newFile = splitName(file.originalname);
+    cb(null, newFile.saveName);
+  }
+});
+const upload = multer({ storage: storage });
 
 // 서버실행
 app.listen(3000, () => {
@@ -36,6 +55,6 @@ app.get(["/multer", "/multer/:type"], (req, res) => {
 
 app.post("/multer_write", upload.single("upfile"), (req, res) => {
 	var title = req.body.title;
-	res.send("업로드 되었습니다.");
-	//var file = req.body.upfile;
+	if(req.file) res.send('<img src="/uploads/sample/'+req.file.filename+'">');
+	else res.send("저장되었습니다.");
 });
