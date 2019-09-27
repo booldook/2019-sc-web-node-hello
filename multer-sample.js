@@ -5,7 +5,18 @@ const bodyParser = require("body-parser");
 const util = require("./modules/util");
 const multer = require("multer");
 const splitName = (file) => {
-	// var fileName = fileArr.join(".");	// ["a", "b", "jpg"] -> "a.b.jpg"
+	/*
+	file = Lighthouse.jpg
+	arr = ["Lighthouse", "jpg"]
+	arr = ["Lighthouse"]
+	obj = {
+		time: 1566787873000,
+		ext: "jpg",
+		name: "1566787873000-80"
+		saveName: "1566787873000-80.jpg"
+	}
+	var fileName = fileArr.join(".");	// ["a", "b", "jpg"] -> "a.b.jpg"
+	*/
 	var arr = file.split(".");	// "a.b.jpg" -> ["a", "b", "jpg"]
 	var obj = {};
 	obj.time = Date.now();
