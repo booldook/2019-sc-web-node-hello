@@ -22,13 +22,34 @@ const chkExt = (req, file, cb) => {
 	if(imgExt.indexOf(ext) > -1 || fileExt.indexOf(ext) > -1) cb(null, true);
 	else cb(null, false);
 }
+// 저장될 폴더를 생성
+const getPath = () => {
+	var dir = makePath();	// dir: 1909
+	console.log(dir);
+	var newPath = path.join(__dirname, "../public/uploads/"+dir);
+	if(!fs.existsSync(newPath)) {
+		fs.mkdir(newPath, (err) => {
+			if(err) new Error("폴더를 생성할 수 없습니다.");
+		});
+	}
+	return newPath;
+}
+
+const makePath = () => {
+	const d = new Date();
+	var year = d.getFullYear() + "";
+	var month;
+	if(d.getMonth() + 1 < 10) month = "0"+ (d.getMonth() + 1);
+	else month = "" + (d.getMonth() + 1);
+	return year.substr(2) + month;
+}
 
 // multer를 이용해 파일을 서버에 저장할 때 경로 및 파일명을 처리하는 모듈
 const storage = multer.diskStorage({
 	destination: (req, file, cb) => {
 		// __dirname: modules의 절대경로(d:/임덕규/17.node-hello/modules)
 		// 위의 절대경로에 상대경로를 붙인다.
-		cb(null, path.join(__dirname, '../public/uploads/test'));
+		cb(null, getPath());
 	},
 	filename: (req, file, cb) => {
 		var newFile = splitName(file.originalname);

@@ -243,6 +243,7 @@ app.post("/gbook_save", mt.upload.single("upfile"), (req, res) => {
 	const comment = req.body.comment;
 	var orifile = "";
 	var savefile = "";
+	console.log(req.body.upfile);
 	if(req.file) {
 		orifile = req.file.originalname;
 		savefile = req.file.filename;
