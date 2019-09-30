@@ -7,7 +7,7 @@ html(lang="ko")
 		.container.my-3
 			.jumbotron
 				h2= `${title}`
-			form(action="/gbook_save" method="post" name="gForm" onsubmit="return onSend(this);")
+			form(action="/gbook_save" method="post" name="gForm" onsubmit="return onSend(this);" enctype="multipart/form-data")
 				ul.row.py-1
 					li.col-md-2
 						.text-primary 작성자
@@ -23,6 +23,11 @@ html(lang="ko")
 						.text-primary 남기실 말 
 					li.col-md-10
 						textarea.form-control(name="comment" style="height: 100px") 
+				ul.row.py-1
+					li.col-md-2
+						.text-primary 첨부파일 
+					li.col-md-10
+						input.form-control-file(name="upfile" type="file") 
 				div.border-top.my-3.p-3.text-center
 					button.btn.btn-primary(type="submit") 저장
 					button.btn.btn-danger(type="reset") 다시작성
