@@ -241,11 +241,18 @@ app.post("/gbook_save", mt.upload.single("upfile"), (req, res) => {
 	const writer = req.body.writer;
 	const pw = req.body.pw;
 	const comment = req.body.comment;
-	const sql = "INSERT INTO gbook SET comment=?, wtime=?, writer=?, pw=?";
-	const vals = [comment, util.dspDate(new Date()), writer, pw];
-	sqlExec(sql, vals).then((data) => {
-		console.log(data);
-		res.redirect("/gbook");
-	}).catch(sqlErr);
+	var orifile = "";
+	var savefile = "";
+	if(req.file.originalname) orifile = req.file.originalname;
+	if(req.file.filename) savefile = req.file.filename;
+	var result;
+
+	const sql = "INSERT INTO gbook SET comment=?, wtime=?, writer=?, pw=?, orifile=?, savefile=?";
+	const vals = [comment, util.dspDate(new Date()), writer, pw, orifile, savefile];
+	(async () => {
+		result = await sqlExec(sql, vals);
+		if(result[0].affectedRows > 0) res.redirect("/gbook");
+		else res.redirect("/500.html");
+	})();
 });
 
