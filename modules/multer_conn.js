@@ -14,6 +14,18 @@ const splitName = (file) => {
 	return obj;
 }
 
+// 업로드 가능한 확장자
+const imgExt = ["jpg", "jpeg", "png", "gif"];
+const fileExt = ["hwp", "xls", "xlsx", "ppt", "pptx", "doc", "docx", "txt", "zip", "pdf"];
+const chkImg = (req, file, cb) => {
+	if(imgExt.indexOf(splitName(file.originalname).ext) > -1) cb(null, true);
+	else cb(null, false);
+}
+const chkFile = (req, file, cb) => {
+	if(fileExt.indexOf(splitName(file.originalname).ext) > -1) cb(null, true);
+	else cb(null, false);
+}
+
 // multer를 이용해 파일을 서버에 저장할 때 경로 및 파일명을 처리하는 모듈
 const storage = multer.diskStorage({
 	destination: (req, file, cb) => {
