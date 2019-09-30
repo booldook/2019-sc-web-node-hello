@@ -20,12 +20,14 @@ const fileExt = ["hwp", "xls", "xlsx", "ppt", "pptx", "doc", "docx", "txt", "zip
 const chkExt = (req, file, cb) => {
 	var ext = splitName(file.originalname).ext.toLowerCase();
 	if(imgExt.indexOf(ext) > -1 || fileExt.indexOf(ext) > -1) cb(null, true);
-	else cb(null, false);
+	else {
+		req.fileValidateError = "Y";
+		cb(null, false);
+	}
 }
 // 저장될 폴더를 생성
 const getPath = () => {
 	var dir = makePath();	// dir: 1909
-	console.log(dir);
 	var newPath = path.join(__dirname, "../public/uploads/"+dir);
 	if(!fs.existsSync(newPath)) {
 		fs.mkdir(newPath, (err) => {
@@ -34,9 +36,8 @@ const getPath = () => {
 	}
 	return newPath;
 }
-
 const makePath = () => {
-	const d = new Date();
+	const d = new Date();	//2019-09-30 16:29:22 GMT(...)
 	var year = d.getFullYear() + "";
 	var month;
 	if(d.getMonth() + 1 < 10) month = "0"+ (d.getMonth() + 1);
@@ -49,7 +50,7 @@ const storage = multer.diskStorage({
 	destination: (req, file, cb) => {
 		// __dirname: modules의 절대경로(d:/임덕규/17.node-hello/modules)
 		// 위의 절대경로에 상대경로를 붙인다.
-		cb(null, getPath());
+		cb(null, getPath());	// /public/uploads/1909
 	},
 	filename: (req, file, cb) => {
 		var newFile = splitName(file.originalname);

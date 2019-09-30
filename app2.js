@@ -243,7 +243,6 @@ app.post("/gbook_save", mt.upload.single("upfile"), (req, res) => {
 	const comment = req.body.comment;
 	var orifile = "";
 	var savefile = "";
-	console.log(req.body.upfile);
 	if(req.file) {
 		orifile = req.file.originalname;
 		savefile = req.file.filename;
@@ -254,7 +253,17 @@ app.post("/gbook_save", mt.upload.single("upfile"), (req, res) => {
 	const vals = [comment, util.dspDate(new Date()), writer, pw, orifile, savefile];
 	(async () => {
 		result = await sqlExec(sql, vals);
-		if(result[0].affectedRows > 0) res.redirect("/gbook");
+		if(result[0].affectedRows > 0) {
+			if(req.fileValidateError == "Y") {
+				html 	= '<meta charset="utf-8">';
+				html += '<script>';
+				html += 'alert("업로드가 허용되지 않는 파일이므로 파일은 업로드 되지 않았습니다.");';
+				html += 'location.href = "/gbook";';
+				html += '</script>';
+				res.send(html);
+			}
+			else res.redirect("/gbook");
+		}
 		else res.redirect("/500.html");
 	})();
 });
