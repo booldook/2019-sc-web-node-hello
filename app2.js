@@ -243,8 +243,10 @@ app.post("/gbook_save", mt.upload.single("upfile"), (req, res) => {
 	const comment = req.body.comment;
 	var orifile = "";
 	var savefile = "";
-	if(req.file.originalname) orifile = req.file.originalname;
-	if(req.file.filename) savefile = req.file.filename;
+	if(req.file) {
+		orifile = req.file.originalname;
+		savefile = req.file.filename;
+	}
 	var result;
 
 	const sql = "INSERT INTO gbook SET comment=?, wtime=?, writer=?, pw=?, orifile=?, savefile=?";

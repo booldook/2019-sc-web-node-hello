@@ -17,12 +17,9 @@ const splitName = (file) => {
 // 업로드 가능한 확장자
 const imgExt = ["jpg", "jpeg", "png", "gif"];
 const fileExt = ["hwp", "xls", "xlsx", "ppt", "pptx", "doc", "docx", "txt", "zip", "pdf"];
-const chkImg = (req, file, cb) => {
-	if(imgExt.indexOf(splitName(file.originalname).ext) > -1) cb(null, true);
-	else cb(null, false);
-}
-const chkFile = (req, file, cb) => {
-	if(fileExt.indexOf(splitName(file.originalname).ext) > -1) cb(null, true);
+const chkExt = (req, file, cb) => {
+	var ext = splitName(file.originalname).ext.toLowerCase();
+	if(imgExt.indexOf(ext) > -1 || fileExt.indexOf(ext) > -1) cb(null, true);
 	else cb(null, false);
 }
 
@@ -40,10 +37,13 @@ const storage = multer.diskStorage({
 });
 
 // storage 객체를 이용해 multer를 초기화(생성) 한다.
-const upload = multer({ storage: storage });
+const upload = multer({ storage: storage, fileFilter: chkExt });
 
 module.exports = {
 	splitName,
 	upload,
-	multer
+	multer,
+	chkExt,
+	imgExt,
+	fileExt
 }
