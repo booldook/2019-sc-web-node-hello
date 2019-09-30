@@ -16,13 +16,15 @@ const splitName = (file) => {
 
 // multer를 이용해 파일을 서버에 저장할 때 경로 및 파일명을 처리하는 모듈
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, 'public/uploads/sample'));
-  },
-  filename: (req, file, cb) => {
+	destination: (req, file, cb) => {
+		// __dirname: modules의 절대경로(d:/임덕규/17.node-hello/modules)
+		// 위의 절대경로에 상대경로를 붙인다.
+		cb(null, path.join(__dirname, '../public/uploads/test'));
+	},
+	filename: (req, file, cb) => {
 		var newFile = splitName(file.originalname);
-    cb(null, newFile.saveName);
-  }
+		cb(null, newFile.saveName);
+	}
 });
 
 // storage 객체를 이용해 multer를 초기화(생성) 한다.

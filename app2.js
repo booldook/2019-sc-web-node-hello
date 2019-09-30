@@ -13,6 +13,7 @@ const bodyParser = require("body-parser");
 const util = require("./modules/util");
 const db = require("./modules/mysql_conn");
 const pager = require("./modules/pager");
+const mt = require("./modules/multer_conn");
 
 // 전역변수 선언
 const sqlPool = db.sqlPool;
@@ -236,7 +237,7 @@ app.get("/gbook_ajax/:page", (req, res) => {
 
 
 // router 영역 - POST
-app.post("/gbook_save", (req, res) => {
+app.post("/gbook_save", mt.upload.single("upfile"), (req, res) => {
 	const writer = req.body.writer;
 	const pw = req.body.pw;
 	const comment = req.body.comment;
