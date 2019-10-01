@@ -133,7 +133,7 @@ app.post("/api/:type", (req, res) => {
 	var sql = "";
 	var vals = [];
 	var result;
-	var html;
+	var obj = {};
 	switch(type) {
 		case "remove":
 			if(id === undefined || pw === undefined) res.redirect("/500.html");
@@ -143,17 +143,10 @@ app.post("/api/:type", (req, res) => {
 				vals.push(pw);
 				(async () => {
 					result = await sqlExec(sql, vals);
-					html = '<meta charset="utf-8"><script>';
-					if(result[0].affectedRows == 1) {
-						html += 'alert("삭제되었습니다.");';
-						html += 'location.href = "/gbook/li/'+page+'";';
-					}
-					else {
-						html += 'alert("비밀번호가 올바르지 않습니다.");';
-						html += 'history.go(-1)';
-					}
-					html += '</script>';
-					res.send(html);
+					if(result[0].affectedRows == 1) obj.msg = "삭제되었습니다.";
+					else obj.msg = "비밀번호가 올바르지 않습니다.";
+					obj.loc = "/gbook/li/"+page;
+					res.send(util.alertLocation(obj));
 					//res.json(result);
 				})();
 			}
@@ -168,17 +161,10 @@ app.post("/api/:type", (req, res) => {
 				vals.push(pw);
 				(async () => {
 					result = await sqlExec(sql, vals);
-					html = '<meta charset="utf-8"><script>';
-					if(result[0].affectedRows == 1) {
-						html += 'alert("수정되었습니다.");';
-						html += 'location.href = "/gbook/li/'+page+'";';
-					}
-					else {
-						html += 'alert("비밀번호가 올바르지 않습니다.");';
-						html += 'history.go(-1)';
-					}
-					html += '</script>';
-					res.send(html);
+					if(result[0].affectedRows == 1) obj.msg = "수정되었습니다.";
+					else obj.msg = "비밀번호가 올바르지 않습니다.";
+					obj.loc = "/gbook/li/"+page;
+					res.send(util.alertLocation(obj));
 				})();
 			}
 			break;
