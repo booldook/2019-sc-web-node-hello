@@ -45,26 +45,25 @@ $("#gbook-tb td").not(":last-child").click(function(){
 		data: {id: id},
 		dataType: "json",
 		success: function (res) {
+			$("#gbook-modal").find(".img-tr").addClass("d-none");
+			$("#gbook-modal").find(".img-tr").find("img").attr("src", "");
+			$("#gbook-modal").find(".file-tr").addClass("d-none");
+			$("#gbook-modal").find(".file-tr").find("a").attr("href", "#");
+			$("#gbook-modal").find(".file-tr").find("a").text("");
 			if(res.savefile != null && res.savefile != "") {
 				var file = splitName(res.savefile);
 				var ext = file.ext.toLowerCase();
 				var ts = Number(file.name.split("-")[0]);
-				var d = new Date(ts);
-				console.log(ts);
-				console.log(d);
+				var dir = findPath(new Date(ts));
+				var path = "/uploads/"+dir+"/"+res.savefile; 
 				if(fileExt.indexOf(ext) > -1) {
 					// 첨부파일
 				}
 				else {
 					// 첨부이미지
+					$("#gbook-modal").find(".img-tr").removeClass("d-none");
+					$("#gbook-modal").find(".img-tr").find("img").attr("src", path);
 				}
-			}
-			else {
-				$("#gbook-modal").find(".img-tr").addClass("d-none");
-				$("#gbook-modal").find(".img-tr").find("img").attr("src", "");
-				$("#gbook-modal").find(".file-tr").addClass("d-none");
-				$("#gbook-modal").find(".file-tr").find("a").attr("href", "#");
-				$("#gbook-modal").find(".file-tr").find("a").text("");
 			}
 			$("#gbook-modal tr").eq(0).children("td").eq(1).html(res.writer);
 			$("#gbook-modal tr").eq(1).children("td").eq(1).html(dspDate(new Date(res.wtime)));

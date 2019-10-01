@@ -153,3 +153,10 @@ function splitName(file) {
 	obj.name = arr[0];
 	return obj;
 }
+
+function findPath(d) {
+	var year = String(d.getFullYear()).substr(2);
+	var month = d.getMonth() + 1;
+	if(month < 10) month = "0" + month;
+	return year + month;
+}
