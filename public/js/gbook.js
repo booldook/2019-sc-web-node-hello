@@ -58,6 +58,9 @@ $("#gbook-tb td").not(":last-child").click(function(){
 				var path = "/uploads/"+dir+"/"+res.savefile; 
 				if(fileExt.indexOf(ext) > -1) {
 					// 첨부파일
+					$("#gbook-modal").find(".file-tr").removeClass("d-none");
+					$("#gbook-modal").find(".file-tr").find("a").attr("href", path);
+					$("#gbook-modal").find(".file-tr").find("a").text(res.savefile);
 				}
 				else {
 					// 첨부이미지
