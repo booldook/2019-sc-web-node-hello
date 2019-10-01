@@ -60,7 +60,7 @@ $("#gbook-tb td").not(":last-child").click(function(){
 					// 첨부파일
 					$("#gbook-modal").find(".file-tr").removeClass("d-none");
 					$("#gbook-modal").find(".file-tr").find("a").attr("href", path);
-					$("#gbook-modal").find(".file-tr").find("a").text(res.savefile);
+					$("#gbook-modal").find(".file-tr").find("a").text(res.orifile);
 				}
 				else {
 					// 첨부이미지
