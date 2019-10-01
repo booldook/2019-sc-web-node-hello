@@ -19,16 +19,20 @@ const imgExt = ["jpg", "jpeg", "png", "gif"];
 const fileExt = ["hwp", "xls", "xlsx", "ppt", "pptx", "doc", "docx", "txt", "zip", "pdf"];
 const chkExt = (req, file, cb) => {
 	var ext = splitName(file.originalname).ext.toLowerCase();
-	if(imgExt.indexOf(ext) > -1 || fileExt.indexOf(ext) > -1) cb(null, true);
+	if(imgExt.indexOf(ext) > -1 || fileExt.indexOf(ext) > -1) {
+		req.fileValidateError = true;
+		cb(null, true);
+	}
 	else {
-		req.fileValidateError = "Y";
+		req.fileValidateError = false;
 		cb(null, false);
 	}
 }
 // 저장될 폴더를 생성
+// 1. 생성할 폴더가 존재하면 폴더절대경로 문자열을 리턴
+// 2. 생성할 폴더가 존재하지 않으면 폴더를 생성한 후 폴더의 절대경로 리턴
 const getPath = () => {
-	var dir = makePath();	// dir: 1909
-	var newPath = path.join(__dirname, "../public/uploads/"+dir);
+	var newPath = path.join(__dirname, "../public/uploads/" + makePath()); // 1909
 	if(!fs.existsSync(newPath)) {
 		fs.mkdir(newPath, (err) => {
 			if(err) new Error("폴더를 생성할 수 없습니다.");
@@ -36,13 +40,14 @@ const getPath = () => {
 	}
 	return newPath;
 }
+
+// 자바스크립트 Date객체에서 현재의 년도와 월을 (예:1909) 문자열로 리턴한다.
 const makePath = () => {
 	const d = new Date();	//2019-09-30 16:29:22 GMT(...)
-	var year = d.getFullYear() + "";
-	var month;
-	if(d.getMonth() + 1 < 10) month = "0"+ (d.getMonth() + 1);
-	else month = "" + (d.getMonth() + 1);
-	return year.substr(2) + month;
+	var year = String(d.getFullYear()).substr(2);	//Number()
+	var month = d.getMonth() + 1;
+	if(month < 10) month = "0" + month;
+	return year + month;	//1909
 }
 
 // multer를 이용해 파일을 서버에 저장할 때 경로 및 파일명을 처리하는 모듈

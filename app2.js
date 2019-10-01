@@ -254,13 +254,11 @@ app.post("/gbook_save", mt.upload.single("upfile"), (req, res) => {
 	(async () => {
 		result = await sqlExec(sql, vals);
 		if(result[0].affectedRows > 0) {
-			if(req.fileValidateError == "Y") {
-				html 	= '<meta charset="utf-8">';
-				html += '<script>';
-				html += 'alert("업로드가 허용되지 않는 파일이므로 파일은 업로드 되지 않았습니다.");';
-				html += 'location.href = "/gbook";';
-				html += '</script>';
-				res.send(html);
+			if(!req.fileValidateError) {
+				res.send(util.alertLocation({
+					msg: "허용되지 않는 파일형식 이므로 파일을 업로드 하지 않았습니다. 첨부파일을 제외한 내용은 저장되었습니다.",
+					loc: "/gbook"
+				}));
 			}
 			else res.redirect("/gbook");
 		}
