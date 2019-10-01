@@ -142,3 +142,14 @@ function pagerMaker($pager, grpCnt, divCnt, total, page, cb) {
 	$(".page-item").css({"cursor":"pointer"});
 	$(".page-item").click(cb);
 }
+
+var imgExt = ["jpg", "jpeg", "png", "gif"];
+var fileExt = ["hwp", "xls", "xlsx", "ppt", "pptx", "doc", "docx", "txt", "zip", "pdf"];
+
+function splitName(file) {
+	var arr = file.split(".");
+	var obj = {};
+	obj.ext = arr[1];
+	obj.name = arr[0];
+	return obj;
+}
