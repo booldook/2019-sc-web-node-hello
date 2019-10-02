@@ -85,7 +85,7 @@ app.get(["/gbook", "/gbook/:type", "/gbook/:type/:id"], (req, res) => {
 				sqlVal = [pagerVal.stRec, pagerVal.grpCnt];
 				result = await sqlExec(sql, sqlVal);
 				vals.datas = result[0];
-				for(let item of vals.datas) item.useIcon = util.iconChk(item.savefile);
+				for(let item of vals.datas) item.useIcon = util.iconChk(item.wtime, item.savefile);
 				console.log(vals.datas);
 				vals.title = "방명록";
 				vals.pager = pagerVal;

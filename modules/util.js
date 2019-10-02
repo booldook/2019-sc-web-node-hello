@@ -62,14 +62,12 @@ const nullChk = (val) => {
 	else return false;
 }
 
-const iconChk = (file) => {
+const iconChk = (dt, file) => {
 	const obj = {};
-	if(nullChk(file)){
-		obj[file.split(".").pop()] = true;
-		var tsFile = Number(file.split("-")[0]);
-		var tsNow = new Date().getTime() - (24 * 60 * 60 * 1000);	//현재시간 - 24시
-		if(tsFile >= tsNow) obj.new = true;
-	}
+	if(nullChk(file)) obj[file.split(".").pop()] = true;
+	var tsFile = new Date(dt).getTime();
+	var tsNow = new Date().getTime() - (24 * 60 * 60 * 1000);	//현재시간 - 24시
+	if(tsFile >= tsNow) obj.new = true;
 	return obj;
 }
 
