@@ -28,12 +28,28 @@ html(lang="ko")
 							td= item.writer
 							td= item.wtime
 							td.text-left= item.comment
-								if useNew
-									span.icon.icon-new.font-weight-bold N
-								if useFile
-									span.icon.icon-file.fas.fa-link
-								if useImg
-									span.icon.icon-img.fas.fa-image
+								if useIcon.new
+									img.ml-2(src="/img/icon/new.png")
+								if useIcon.doc
+									img.ml-2(src="/img/icon/doc.png")
+								if useIcon.ppt
+									img.ml-2(src="/img/icon/ppt.png")
+								if useIcon.xls
+									img.ml-2(src="/img/icon/xls.png")
+								if useIcon.txt
+									img.ml-2(src="/img/icon/txt.png")
+								if useIcon.hwp
+									img.ml-2(src="/img/icon/hwp.png")
+								if useIcon.zip
+									img.ml-2(src="/img/icon/zip.png")
+								if useIcon.png
+									img.ml-2(src="/img/icon/png.png")
+								if useIcon.gif
+									img.ml-2(src="/img/icon/gif.png")
+								if useIcon.jpg
+									img.ml-2(src="/img/icon/jpg.png")
+								if useIcon.pdf
+									img.ml-2(src="/img/icon/pdf.png")
 							td
 								button.btn.btn-info.btn-sm.mr-1.btChg 수정
 								button.btn.btn-danger.btn-sm.btRev 삭제
