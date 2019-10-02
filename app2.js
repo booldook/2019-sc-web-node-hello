@@ -8,6 +8,7 @@ app.listen(port, () => {
 
 // node_modules 참조
 const bodyParser = require("body-parser");
+const path = require("path");
 
 // modules 참조
 const util = require("./modules/util");
@@ -174,6 +175,12 @@ app.post("/api/:type", (req, res) => {
 	}
 });
 
+// File download Route
+app.get("/download", (req, res) => {
+	const downName = req.query.downName;	// 업로드 파일명 (예: desert.jpg)
+	const fileName = path.join(__dirname, "/public/uploads/"+mt.getDir(req.query.fileName)+"/") + req.query.fileName; // 실제 저장된 파일명 (예: ts-00.jpg)
+	res.download(fileName, downName);
+});
 
 
 

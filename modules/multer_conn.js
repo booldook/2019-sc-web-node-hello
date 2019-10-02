@@ -14,6 +14,17 @@ const splitName = (file) => {
 	return obj;
 }
 
+// 파일명을 받아서 년월(예: 1909) 폴더명을 리턴
+// module.exports.getDir = (fileName) => { <-- 이렇게 표현하면 하단에서 exports 안해도 됨
+const getDir = (fileName) => {
+	var d = new Date(Number(fileName.split("-")[0]));
+	var year = String(d.getFullYear()).substr(2);
+	var month = d.getMonth() + 1;
+	if(month < 10) month = "0" + month;
+	return year + month;
+}
+
+
 // 업로드 가능한 확장자
 const imgExt = ["jpg", "jpeg", "png", "gif"];
 const fileExt = ["hwp", "xls", "xlsx", "ppt", "pptx", "doc", "docx", "txt", "zip", "pdf"];
@@ -40,6 +51,8 @@ const getPath = () => {
 	}
 	return newPath;
 }
+
+
 
 // 자바스크립트 Date객체에서 현재의 년도와 월을 (예:1909) 문자열로 리턴한다.
 const makePath = () => {
@@ -72,5 +85,6 @@ module.exports = {
 	multer,
 	chkExt,
 	imgExt,
-	fileExt
+	fileExt,
+	getDir
 }

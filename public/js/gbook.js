@@ -55,17 +55,18 @@ $("#gbook-tb td").not(":last-child").click(function(){
 				var ext = file.ext.toLowerCase();
 				var ts = Number(file.name.split("-")[0]);
 				var dir = findPath(new Date(ts));
-				var path = "/uploads/"+dir+"/"+res.savefile; 
+				var imgPath = "/uploads/"+dir+"/"+res.savefile; 
+				var downPath = "/download?fileName="+res.savefile+"&downName="+res.orifile
 				if(fileExt.indexOf(ext) > -1) {
 					// 첨부파일
 					$("#gbook-modal").find(".file-tr").removeClass("d-none");
-					$("#gbook-modal").find(".file-tr").find("a").attr("href", path);
+					$("#gbook-modal").find(".file-tr").find("a").attr("href", downPath);
 					$("#gbook-modal").find(".file-tr").find("a").text(res.orifile);
 				}
 				else {
 					// 첨부이미지
 					$("#gbook-modal").find(".img-tr").removeClass("d-none");
-					$("#gbook-modal").find(".img-tr").find("img").attr("src", path);
+					$("#gbook-modal").find(".img-tr").find("img").attr("src", imgPath);
 				}
 			}
 			$("#gbook-modal tr").eq(0).children("td").eq(1).html(res.writer);
