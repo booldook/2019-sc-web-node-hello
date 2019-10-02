@@ -57,8 +57,14 @@ const alertLocation = (obj) => {
 	return html;
 }
 
+const nullChk = (val) => {
+	if(val !== undefined && val !== null && val !== "") return true;
+	else return false;
+}
+
 module.exports = {
 	dspDate,
 	alertLocation,
-	zp
+	zp,
+	nullChk
 }
