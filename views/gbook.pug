@@ -28,6 +28,12 @@ html(lang="ko")
 							td= item.writer
 							td= item.wtime
 							td.text-left= item.comment
+								if useNew
+									span.icon.icon-new.font-weight-bold N
+								if useFile
+									span.icon.icon-file.fas.fa-link
+								if useImg
+									span.icon.icon-img.fas.fa-image
 							td
 								button.btn.btn-info.btn-sm.mr-1.btChg 수정
 								button.btn.btn-danger.btn-sm.btRev 삭제

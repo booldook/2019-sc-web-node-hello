@@ -141,17 +141,15 @@ app.post("/api/:type", (req, res) => {
 		case "remove":
 			if(id === undefined || pw === undefined) res.redirect("/500.html");
 			else {
-				// 첨부파일 가져오기
-				sql = "SELECT savefile FROM gbook WHERE id="+id;
-				(async () => {
-					result = await sqlExec(sql);
-					savefile = result[0][0].savefile;
-				})();
-				// 실제 데이터베이스 삭제
-				sql = "DELETE FROM gbook WHERE id=? AND pw=?";
 				vals.push(id);
 				vals.push(pw);
 				(async () => {
+					// 첨부파일 가져오기
+					sql = "SELECT savefile FROM gbook WHERE id="+id;
+					result = await sqlExec(sql);
+					savefile = result[0][0].savefile;
+					// 실제 데이터베이스 삭제
+					sql = "DELETE FROM gbook WHERE id=? AND pw=?";
 					result = await sqlExec(sql, vals);
 					if(result[0].affectedRows == 1) {
 						obj.msg = "삭제되었습니다.";

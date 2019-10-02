@@ -1,0 +1,4 @@
+.icon {margin-left: 0.5rem; border-radius: 2px; color: #f9f9f9;}
+.icon.icon-new {background-color: crimson; display: inline-block; line-height: 0.75rem; padding: 4px;}
+.icon.icon-file {background-color: slateblue; padding: 2px;}
+.icon.icon-img {background-color: olivedrab; padding: 2px;}
