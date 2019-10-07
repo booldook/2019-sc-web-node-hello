@@ -2,7 +2,7 @@
 	.modal-dialog.modal-dialog-centered(role="document")
 		.modal-content
 			.modal-body
-				form(action="/api/update", method="post", name="upForm", onsubmit="return onSend(this)")
+				form(action="/api/update", method="post", name="upForm", enctype="multipart/form-data", onsubmit="return onSend(this)")
 					input(type="hidden", name="id")
 					input(type="hidden", name="page", value=`${pager.page}`)
 					table.table.table-hover
@@ -20,6 +20,14 @@
 								td.bg-dark.text-light.text-center 내용
 								td 
 									textarea.form-control(name="comment", style="height: 200px;")
+							tr.img-tr.d-none
+								td.bg-dark.text-light.text-center 첨부이미지
+								td
+									img.w-100(style="max-width:350px;")
+							tr.file-tr.d-none
+								td.bg-dark.text-light.text-center 첨부파일
+								td
+									a
 					.my-3.text-center
 						button.btn.btn-success 수정
 						button.btn.btn-danger(type="button", onclick="onReset();") 다시작성

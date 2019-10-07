@@ -44,38 +44,43 @@ $("#gbook-tb td").not(":last-child").click(function(){
 		url: "/api/modalData",
 		data: {id: id},
 		dataType: "json",
-		success: function (res) {
-			$("#gbook-modal").find(".img-tr").addClass("d-none");
-			$("#gbook-modal").find(".img-tr").find("img").attr("src", "");
-			$("#gbook-modal").find(".file-tr").addClass("d-none");
-			$("#gbook-modal").find(".file-tr").find("a").attr("href", "#");
-			$("#gbook-modal").find(".file-tr").find("a").text("");
-			if(res.savefile != null && res.savefile != "") {
-				var file = splitName(res.savefile);
-				var ext = file.ext.toLowerCase();
-				var ts = Number(file.name.split("-")[0]);
-				var dir = findPath(new Date(ts));
-				var imgPath = "/uploads/"+dir+"/"+res.savefile; 
-				var downPath = "/download?fileName="+res.savefile+"&downName="+res.orifile
-				if(fileExt.indexOf(ext) > -1) {
-					// 첨부파일
-					$("#gbook-modal").find(".file-tr").removeClass("d-none");
-					$("#gbook-modal").find(".file-tr").find("a").attr("href", downPath);
-					$("#gbook-modal").find(".file-tr").find("a").text(res.orifile);
-				}
-				else {
-					// 첨부이미지
-					$("#gbook-modal").find(".img-tr").removeClass("d-none");
-					$("#gbook-modal").find(".img-tr").find("img").attr("src", imgPath);
-				}
-			}
-			$("#gbook-modal tr").eq(0).children("td").eq(1).html(res.writer);
-			$("#gbook-modal tr").eq(1).children("td").eq(1).html(dspDate(new Date(res.wtime)));
-			$("#gbook-modal tr").eq(2).find("div").html(res.comment);
-			$("#gbook-modal").modal("show");
+		success: function(res) {
+			writeAjax(res, "#gbook-modal");
 		}
 	});
 });
+
+// 상세보기, 수정 화면표현 공통함수
+function writeAjax(res, modal) {
+	$(modal).find(".img-tr").addClass("d-none");
+	$(modal).find(".img-tr").find("img").attr("src", "");
+	$(modal).find(".file-tr").addClass("d-none");
+	$(modal).find(".file-tr").find("a").attr("href", "#");
+	$(modal).find(".file-tr").find("a").text("");
+	if(res.savefile != null && res.savefile != "") {
+		var file = splitName(res.savefile);
+		var ext = file.ext.toLowerCase();
+		var ts = Number(file.name.split("-")[0]);
+		var dir = findPath(new Date(ts));
+		var imgPath = "/uploads/"+dir+"/"+res.savefile; 
+		var downPath = "/download?fileName="+res.savefile+"&downName="+res.orifile
+		if(fileExt.indexOf(ext) > -1) {
+			// 첨부파일
+			$(modal).find(".file-tr").removeClass("d-none");
+			$(modal).find(".file-tr").find("a").attr("href", downPath);
+			$(modal).find(".file-tr").find("a").text(res.orifile);
+		}
+		else {
+			// 첨부이미지
+			$(modal).find(".img-tr").removeClass("d-none");
+			$(modal).find(".img-tr").find("img").attr("src", imgPath);
+		}
+	}
+	$(modal).find("tr").eq(0).children("td").eq(1).html(res.writer);
+	$(modal).find("tr").eq(1).children("td").eq(1).html(dspDate(new Date(res.wtime)));
+	$(modal).find("tr").eq(2).find("div").html(res.comment);
+	$(modal).modal("show");
+}
 
 // 삭제기능
 $(".btRev").click(function(){
