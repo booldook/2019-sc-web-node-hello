@@ -52,11 +52,16 @@ $("#gbook-tb td").not(":last-child").click(function(){
 
 // 상세보기, 수정 화면표현 공통함수
 function writeAjax(res, modal) {
+	// 초기화
 	$(modal).find(".img-tr").addClass("d-none");
+	$(modal).find(".img-tr").find("td").eq(0).attr("rowspan", "");
 	$(modal).find(".img-tr").find("img").attr("src", "");
 	$(modal).find(".file-tr").addClass("d-none");
+	$(modal).find(".file-tr").find("td").eq(0).attr("rowspan", "");
 	$(modal).find(".file-tr").find("a").attr("href", "#");
 	$(modal).find(".file-tr").find("a").text("");
+	$(modal).find(".up-td").addClass("d-none");
+	// 첨부파일 경로 설정
 	if(res.savefile != null && res.savefile != "") {
 		var file = splitName(res.savefile);
 		var ext = file.ext.toLowerCase();
@@ -67,13 +72,20 @@ function writeAjax(res, modal) {
 		if(fileExt.indexOf(ext) > -1) {
 			// 첨부파일
 			$(modal).find(".file-tr").removeClass("d-none");
+			$(modal).find(".file-tr").find("td").eq(0).attr("rowspan", "2");
 			$(modal).find(".file-tr").find("a").attr("href", downPath);
 			$(modal).find(".file-tr").find("a").text(res.orifile);
 		}
-		else {
+		else if(imgExt.indexOf(ext) > -1) {
 			// 첨부이미지
 			$(modal).find(".img-tr").removeClass("d-none");
+			$(modal).find(".img-tr").find("td").eq(0).attr("rowspan", "2");
 			$(modal).find(".img-tr").find("img").attr("src", imgPath);
+		}
+		else {
+			// 첨부파일 없음
+			$(modal).find(".up-td").removeClass("d-none");
+			$(modal).find("input[name='upfile']").val("");
 		}
 	}
 	if(modal == "#gbook-modal") {
