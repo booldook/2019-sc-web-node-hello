@@ -127,7 +127,7 @@ app.get("/api/:type", (req, res) => {
 	}
 });
 
-app.post("/api/:type", (req, res) => {
+app.post("/api/:type", mt.upload.single("upfile"), (req, res) => {
 	var type = req.params.type;
 	var id = req.body.id;
 	var pw = req.body.pw;
@@ -138,7 +138,12 @@ app.post("/api/:type", (req, res) => {
 	var vals = [];
 	var result;
 	var obj = {};
-	var savefile = '';
+	var orifile = "";
+	var savefile = "";
+	if(req.file) {
+		orifile = req.file.originalname;
+		savefile = req.file.filename;
+	}
 	switch(type) {
 		case "remove":
 			if(id === undefined || pw === undefined) res.redirect("/500.html");
@@ -167,9 +172,13 @@ app.post("/api/:type", (req, res) => {
 		case "update":
 			if(id === undefined || pw === undefined) res.redirect("/500.html");
 			else {
-				sql = "UPDATE gbook SET writer=?, comment=? WHERE id=? AND pw=?";
+				sql = "UPDATE gbook SET writer=?, comment=? ";
+				if(req.file) sql += ", orifile=?, savefile=? ";
+				sql += " WHERE id=? AND pw=?";
 				vals.push(writer);
 				vals.push(comment);
+				if(req.file) vals.push(orifile);
+				if(req.file) vals.push(savefile);
 				vals.push(id);
 				vals.push(pw);
 				(async () => {
