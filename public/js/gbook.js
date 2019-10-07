@@ -76,17 +76,17 @@ function writeAjax(res, modal) {
 			$(modal).find(".file-tr").find("a").attr("href", downPath);
 			$(modal).find(".file-tr").find("a").text(res.orifile);
 		}
-		else if(imgExt.indexOf(ext) > -1) {
+		else {
 			// 첨부이미지
 			$(modal).find(".img-tr").removeClass("d-none");
 			$(modal).find(".img-tr").find("td").eq(0).attr("rowspan", "2");
 			$(modal).find(".img-tr").find("img").attr("src", imgPath);
 		}
-		else {
-			// 첨부파일 없음
-			$(modal).find(".up-td").removeClass("d-none");
-			$(modal).find("input[name='upfile']").val("");
-		}
+	}
+	else {
+		// 첨부파일 없음
+		$(modal).find(".up-td").removeClass("d-none");
+		$(modal).find("input[name='upfile']").val("");
 	}
 	if(modal == "#gbook-modal") {
 		$(modal).find("tr").eq(0).children("td").eq(1).html(res.writer);
