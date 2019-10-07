@@ -76,10 +76,17 @@ function writeAjax(res, modal) {
 			$(modal).find(".img-tr").find("img").attr("src", imgPath);
 		}
 	}
-	$(modal).find("tr").eq(0).children("td").eq(1).html(res.writer);
-	$(modal).find("tr").eq(1).children("td").eq(1).html(dspDate(new Date(res.wtime)));
-	$(modal).find("tr").eq(2).find("div").html(res.comment);
-	$(modal).modal("show");
+	if(modal == "#gbook-modal") {
+		$(modal).find("tr").eq(0).children("td").eq(1).html(res.writer);
+		$(modal).find("tr").eq(1).children("td").eq(1).html(dspDate(new Date(res.wtime)));
+		$(modal).find("tr").eq(2).find("div").html(res.comment);
+		$(modal).modal("show");
+	}
+	else {
+		$(modal).find("input[name='writer']").val(res.writer);
+		$(modal).find("textarea[name='comment']").val(res.comment);
+		$(modal).modal("show");
+	}
 }
 
 // 삭제기능
@@ -114,9 +121,7 @@ function upAjax(id) {
 		data: {id: id},
 		dataType: "json",
 		success: function (res) {
-			$("form[name='upForm']").find("input[name='writer']").val(res.writer);
-			$("form[name='upForm']").find("textarea[name='comment']").val(res.comment);
-			$("#update-modal").modal("show");
+			writeAjax(res, "#update-modal");
 		}
 	});
 }
