@@ -147,14 +147,15 @@ function popOpen() {
 		}, 10);
 	}, 3000);
 }
-popOpen();
+if($.cookie("popChk") !== "true") popOpen();
 
 $(".popup-close, .popup-close2").click(function(){
 	// attribute - 마음대로 값을 바꿀수 있는 속성
 	// property - 정해져 있는 속성
 	// <input type="text(attr)" checked(prop)>
+	// $.cookie("변수명", "변수값", {expires(cookie가 만료되는 시점): 1(하루)});
 	var chk = $("#popOut").prop("checked");
-	console.log(chk);
+	$.cookie("popChk", chk, {expires: 1}); // 쿠키생성
 	$(".popup-bg").css("display", "none");
 	$(".popup-wrap").css({"opacity": 0, "transform":"translateY(-100%)"});
 });
