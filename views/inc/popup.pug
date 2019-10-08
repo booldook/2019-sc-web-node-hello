@@ -3,12 +3,14 @@ link(rel="stylesheet", href="/css/popup.css")
 	.popup-wrap
 		.popup-header
 			.popup-tit
+				i.fas.fa-info-circle
+				span 사이트 안내
 			.popup-close
 				i.fas.fa-times
 		.popup-body
 			p 본 사이트는 Node.js, MySQL, PUG, EJS를 사용하여 제작된 방명록 사이트 입니다.
 		.popup-footer
 			.popup-24
-				input(type="checkbox" name="popOut")
-				span 24시간동안 사용하지 않기
+				input(type="checkbox" name="popOut" id="popOut")
+				label(for="popOut") 24시간동안 사용하지 않기
 			button.btn.btn-sm.btn-danger 닫기
