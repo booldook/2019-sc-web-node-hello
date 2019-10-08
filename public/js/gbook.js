@@ -138,6 +138,15 @@ function upAjax(id) {
 	});
 }
 
+// POPUP
+setTimeout(function() {
+	$(".popup-bg").css("display", "flex");
+	setTimeout(function(){
+		$(".popup-wrap").css({"opacity": 1, "transform":"translateY(0)"});
+	}, 100);
+}, 500)
+
+
 
 // $(f).find("input[name='writer']").val().trim() <-- jQuery
 // f.writer.value.trim() <-- javascript
