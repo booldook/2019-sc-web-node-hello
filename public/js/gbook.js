@@ -139,12 +139,25 @@ function upAjax(id) {
 }
 
 // POPUP
-setTimeout(function() {
-	$(".popup-bg").css("display", "flex");
+function popOpen() {
 	setTimeout(function(){
-		$(".popup-wrap").css({"opacity": 1, "transform":"translateY(0)"});
-	}, 100);
-}, 500)
+		$(".popup-bg").css("display", "flex");
+		setTimeout(function(){
+			$(".popup-wrap").css({"opacity": 1, "transform":"translateY(0)"});
+		}, 10);
+	}, 3000);
+}
+popOpen();
+
+$(".popup-close, .popup-close2").click(function(){
+	// attribute - 마음대로 값을 바꿀수 있는 속성
+	// property - 정해져 있는 속성
+	// <input type="text(attr)" checked(prop)>
+	var chk = $("#popOut").prop("checked");
+	console.log(chk);
+	$(".popup-bg").css("display", "none");
+	$(".popup-wrap").css({"opacity": 0, "transform":"translateY(-100%)"});
+});
 
 
 
