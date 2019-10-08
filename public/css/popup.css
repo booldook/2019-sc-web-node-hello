@@ -1,0 +1,7 @@
+.popup-bg {width: 100%; height: 100%; background-color: rgba(0,0,0,0.3); position: fixed; top: 0; left: 0; display: flex; justify-content: center; align-items: center;}
+.popup-wrap {width: 400px; border: 1px solid #bbb; box-shadow: 0 0 3px rgba(0,0,0,0.5); background-color: #f8f8f8;}
+.popup-header {background-color: #d1d1d1; padding: 0.25rem; display: flex; justify-content: space-between; align-items: center;}
+	.popup-tit {font-size: 1.25rem;}
+	.popup-close {width: 32px; height: 32px; background-color: #111; color: #f1f1f1; font-size: 1.5rem; line-height: 32px; text-align:center; cursor: pointer;}
+.popup-body {}
+.popup-footer {}
