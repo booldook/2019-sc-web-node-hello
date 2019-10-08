@@ -147,6 +147,7 @@ function popOpen() {
 		}, 10);
 	}, 3000);
 }
+// $.removeCookie("popChk"); // 쿠키삭제
 if($.cookie("popChk") !== "true") popOpen();
 
 $(".popup-close, .popup-close2").click(function(){
