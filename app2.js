@@ -343,15 +343,15 @@ function memJoin(req, res) {
 	vals.push(req.body.username);
 	vals.push(req.body.tel1 + "-" + req.body.tel2 + "-" + req.body.tel3);
 	vals.push(req.body.post);
-	vals.push(req.body.addr1 + "(" + req.body.addr2 + ")");
+	vals.push(req.body.addr1 + req.body.addr2);
 	vals.push(req.body.addr3);
 	vals.push(new Date());
 	vals.push(2);
 	var sql = "";
-	const result = {};
+	var result = {};
 	(async () => {
 		sql = "INSERT INTO member SET userid=?, userpw=?, username=?, tel=?, post=?, addr1=?, addr2=?, wtime=?, grade=?";
 		result = await sqlExec(sql, vals);
-		res.json(result);
+		res.send(result);
 	})();
 }
