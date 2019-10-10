@@ -53,16 +53,12 @@ html(lang="ko")
 							td.bg-dark.text-light 도로명 주소
 							td
 								input.form-control(type="text" name="addr1" id="addr1" readonly)
-						tr
-							td.bg-dark.text-light 지번 주소
-							td
-								input.form-control(type="text" name="addr2" id="addr2" readonly)
+								span(id="guide" style="color: #999; display: none")
 						tr
 							td.bg-dark.text-light 상세주소
 							td.form-inline
-								span(id="guide" style="color: #999; display: none")
-								input.form-control.w-50(type="text" name="addr4" id="addr4" placeholder="상세주소")
-								input.form-control(type="text" name="addr3" id="addr3" placeholder="참고항목" style="width: 30%; margin-left: 8px;")
+								input.form-control.w-50(type="text" name="addr3" id="addr3" placeholder="상세주소")
+								input.form-control(type="text" name="addr2" id="addr2" placeholder="참고항목" style="width: 30%; margin-left: 8px;")
 				.my-3.text-center
 					button.btn.btn-primary 회원가입
 					button.btn.btn-danger(type="reset") 다시작성

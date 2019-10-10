@@ -23,15 +23,16 @@ function daumPostcode() {
 					}
 
 					// 우편번호와 주소 정보를 해당 필드에 넣는다.
+					console.log(data.jibunAddress);
 					document.getElementById('post').value = data.zonecode;
 					document.getElementById("addr1").value = roadAddr;
-					document.getElementById("addr2").value = data.jibunAddress;
+					//document.getElementById("addr2").value = data.jibunAddress;
 					
 					// 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
 					if(roadAddr !== ''){
-							document.getElementById("addr3").value = extraRoadAddr;
+							document.getElementById("addr2").value = extraRoadAddr;
 					} else {
-							document.getElementById("addr3").value = '';
+							document.getElementById("addr2").value = '';
 					}
 
 					var guideTextBox = document.getElementById("guide");
