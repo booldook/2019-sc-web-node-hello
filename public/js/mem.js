@@ -1,6 +1,6 @@
 // 아이디 중복 체크
 $("#userid").on("blur", function () {
-	var userid = $(this).val();
+	var userid = $(this).val().trim();
 	$(".userid-cmt").empty();
 	if (userid.length >= 8 && userid.length <= 16) {
 		ajax("/api-mem/userid", "post", {userid: userid}, function (res) {
@@ -23,3 +23,4 @@ $("#userid").on("blur", function () {
 		$("#userid").focus();
 	}
 });
+
