@@ -303,10 +303,11 @@ app.get("/mem/:type", memEdit); // 회원가입, 아이디/비번찾기, 리스�
 /* 함수구현 - GET */
 function memEdit(req, res) {
 	const type = req.params.type;
-	const vals = {};
+	const vals = {css: "mem", js: "mem"};
 	switch(type) {
 		case "join":
 			vals.title = "회원가입";
+			vals.tel = util.telNum;
 			res.render("mem_in", vals);
 			break;
 	}

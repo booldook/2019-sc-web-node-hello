@@ -33,9 +33,12 @@ html(lang="ko")
 							td.bg-dark.text-light 전화번호
 							td.form-inline
 								select.form-control(name="tel1" id="tel1" style="max-width: 150px;")
-									option
+									option(value="" selected) 선택
+									each item in tel
+										option(value=item)= item
 								span &nbsp;-&nbsp;
-								input.form-control(type="number" name="tel2" id="tel2" min="0" max="9999" style="max-width: 150px;")
+								input.form-control(type="number" name="tel2" id="tel2" min="0" max="9999" max-length="4" style="max-width: 150px;" oninput="telChk(this);")
 								span &nbsp;-&nbsp;
-								input.form-control(type="number" name="tel3" id="tel3" min="0" max="9999" style="max-width: 150px;")
-						
+								input.form-control(type="number" name="tel3" id="tel3" min="0" max="9999" style="max-width: 150px;" oninput="telChk(this);")
+		include inc/footer.pug
+		include inc/script.pug
