@@ -327,11 +327,8 @@ function memApi(req, res) {
 				sql = "SELECT count(id) FROM member WHERE userid=?";
 				sqlVals.push(userid);
 				result = await sqlExec(sql, sqlVals);
-				res.json(result[0][0]["count(id)"]);
-				/*
-				if(result[0] > 0) res.json({chk: false});
+				if(result[0][0]["count(id)"] > 0) res.json({chk: false});
 				else res.json({chk: true});
-				*/
 			})();
 			break;
 	}
