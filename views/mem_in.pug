@@ -1,0 +1,16 @@
+doctype html
+html(lang="ko")
+	head
+		include ./inc/header.pug
+	body
+		include ./inc/navi.pug
+		.container.my-3
+			.jumbotron
+				h2= `${title}`
+			form(name="memberJoin" method="post" action="/mem/join" onsubmit="return memberJoin();")
+				table.table.table-bordered.table-hover
+					tbody
+						tr
+							td.bg-dark.text-light 아이디
+							td
+								input.form-control(type="text" name="userid" id="userid" placeholder="아이디")
