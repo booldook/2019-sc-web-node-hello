@@ -48,17 +48,25 @@ html(lang="ko")
 							td.form-inline
 								input.form-control(type="text" name="post" id="post" style="max-width: 200px;" readonly)
 								span &nbsp;
-								button.btn.btn-primary(type="button") 우편번호찾기
+								button.btn.btn-primary(type="button" onclick="daumPostcode();") 우편번호찾기
 						tr
-							td.bg-dark.text-light 주소
+							td.bg-dark.text-light 도로명 주소
 							td
 								input.form-control(type="text" name="addr1" id="addr1" readonly)
 						tr
-							td.bg-dark.text-light 상세주소
+							td.bg-dark.text-light 지번 주소
 							td
-								input.form-control(type="text" name="addr2" id="addr2" placeholder="상세주소")
+								input.form-control(type="text" name="addr2" id="addr2" readonly)
+						tr
+							td.bg-dark.text-light 상세주소
+							td.form-inline
+								span(id="guide" style="color: #999; display: none")
+								input.form-control.w-50(type="text" name="addr4" id="addr4" placeholder="상세주소")
+								input.form-control(type="text" name="addr3" id="addr3" placeholder="참고항목" style="width: 30%; margin-left: 8px;")
 				.my-3.text-center
 					button.btn.btn-primary 회원가입
 					button.btn.btn-danger(type="reset") 다시작성
 		include inc/footer.pug
+		script(src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js")
+		script(src="/js/post_search.js")
 		include inc/script.pug

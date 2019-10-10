@@ -18,10 +18,12 @@ $("#userid").on("blur", function () {
 		});
 	}
 	else {
-		$(".userid-cmt").text("* 아이디는 8 ~ 16자 입니다.");
+		$(".userid-cmt").text("* 아이디는 영문, 숫자 8 ~ 16자 입니다.");
 		$(".userid-cmt").css({"color": "red"});
 		$("#userid").css({"border": "1px solid red"});
 		$("#userid").focus();
 	}
 });
+
+
 
