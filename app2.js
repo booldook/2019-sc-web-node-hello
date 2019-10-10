@@ -296,6 +296,7 @@ app.post("/gbook_save", mt.upload.single("upfile"), (req, res) => {
 
 /* 회원 라우터 */
 app.get("/mem/:type", memEdit); // 회원가입, 아이디/비번찾기, 리스트, 정보
+app.post("/api-mem/:type", memApi);	// 회원가입시 각종 Ajax
 
 
 
@@ -309,6 +310,29 @@ function memEdit(req, res) {
 			vals.title = "회원가입";
 			vals.tel = util.telNum;
 			res.render("mem_in", vals);
+			break;
+	}
+}
+
+/* 한수구현 - POST */
+function memApi(req, res) {
+	const type = req.params.type;
+	var sql = "";
+	var sqlVals = [];
+	var result;
+	switch(type) {
+		case "userid":
+			const userid = req.body.userid;
+			(async () => {
+				sql = "SELECT count(id) FROM member WHERE userid=?";
+				sqlVals.push(userid);
+				result = await sqlExec(sql, sqlVals);
+				res.json(result[0][0]["count(id)"]);
+				/*
+				if(result[0] > 0) res.json({chk: false});
+				else res.json({chk: true});
+				*/
+			})();
 			break;
 	}
 }
