@@ -1,8 +1,9 @@
 // 아이디 중복 체크
 $("#userid").on("blur", function () {
 	var userid = $(this).val().trim();
+	var idType = /^[A-Za-z0-9+]{8,16}$/;
 	$(".userid-cmt").empty();
-	if (userid.length >= 8 && userid.length <= 16) {
+	if (idType.test(userid)) {
 		ajax("/api-mem/userid", "post", {userid: userid}, function (res) {
 			if (res.chk) {
 				$(".userid-cmt").text('* 사용가능한 아이디 입니다.');
