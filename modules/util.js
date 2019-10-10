@@ -71,10 +71,13 @@ const iconChk = (dt, file) => {
 	return obj;
 }
 
+const telNum = ["010", "011", "016", "017", "018", "019", "02", "051", "053", "032", "062", "042", "052", "044", "031", "033", "043", "041", "063", "061", "054", "055", "064"];
+
 module.exports = {
 	dspDate,
 	alertLocation,
 	zp,
 	nullChk,
-	iconChk
+	iconChk,
+	telNum
 }

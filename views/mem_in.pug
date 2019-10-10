@@ -9,8 +9,33 @@ html(lang="ko")
 				h2= `${title}`
 			form(name="memberJoin" method="post" action="/mem/join" onsubmit="return memberJoin();")
 				table.table.table-bordered.table-hover
+					colgroup
+						col(width="20%")
+						col
 					tbody
 						tr
 							td.bg-dark.text-light 아이디
 							td
-								input.form-control(type="text" name="userid" id="userid" placeholder="아이디")
+								input.form-control(type="text" name="userid" id="userid" placeholder="아이디" style="max-width: 200px;")
+						tr
+							td.bg-dark.text-light 패스워드
+							td
+								input.form-control(type="password" name="userpw" id="userpw" style="max-width: 200px;")
+						tr
+							td.bg-dark.text-light 패스워드 확인
+							td
+								input.form-control(type="password" name="userpw2" id="userpw2" style="max-width: 200px;")
+						tr
+							td.bg-dark.text-light 이름
+							td
+								input.form-control(type="text" name="username" id="username" style="max-width: 200px;")
+						tr
+							td.bg-dark.text-light 전화번호
+							td.form-inline
+								select.form-control(name="tel1" id="tel1" style="max-width: 150px;")
+									option
+								span &nbsp;-&nbsp;
+								input.form-control(type="number" name="tel2" id="tel2" min="0" max="9999" style="max-width: 150px;")
+								span &nbsp;-&nbsp;
+								input.form-control(type="number" name="tel3" id="tel3" min="0" max="9999" style="max-width: 150px;")
+						

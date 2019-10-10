@@ -290,3 +290,24 @@ app.post("/gbook_save", mt.upload.single("upfile"), (req, res) => {
 	})();
 });
 
+
+
+/* 회원가입 및 로그인 등 */
+
+/* 회원 라우터 */
+app.get("/mem/:type", memEdit); // 회원가입, 아이디/비번찾기, 리스트, 정보
+
+
+
+
+/* 함수구현 - GET */
+function memEdit(req, res) {
+	const type = req.params.type;
+	const vals = {};
+	switch(type) {
+		case "join":
+			vals.title = "회원가입";
+			res.render("mem_in", vals);
+			break;
+	}
+}
