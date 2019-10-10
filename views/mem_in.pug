@@ -8,7 +8,7 @@ html(lang="ko")
 			.jumbotron
 				h2= `${title}`
 			form(name="memberJoin" method="post" action="/mem/join" onsubmit="return memberJoin();")
-				table.table.table-bordered.table-hover
+				table.table.table-bordered
 					colgroup
 						col(width="20%")
 						col
@@ -40,5 +40,22 @@ html(lang="ko")
 								input.form-control(type="number" name="tel2" id="tel2" min="0" max="9999" max-length="4" style="max-width: 150px;" oninput="telChk(this);")
 								span &nbsp;-&nbsp;
 								input.form-control(type="number" name="tel3" id="tel3" min="0" max="9999" style="max-width: 150px;" oninput="telChk(this);")
+						tr
+							td.bg-dark.text-light 우편번호
+							td.form-inline
+								input.form-control(type="text" name="post" id="post" style="max-width: 200px;" readonly)
+								span &nbsp;
+								button.btn.btn-primary(type="button") 우편번호찾기
+						tr
+							td.bg-dark.text-light 주소
+							td
+								input.form-control(type="text" name="addr1" id="addr1" readonly)
+						tr
+							td.bg-dark.text-light 상세주소
+							td
+								input.form-control(type="text" name="addr2" id="addr2" placeholder="상세주소")
+				.my-3.text-center
+					button.btn.btn-primary 회원가입
+					button.btn.btn-danger(type="reset") 다시작성
 		include inc/footer.pug
 		include inc/script.pug
