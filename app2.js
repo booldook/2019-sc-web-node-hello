@@ -11,6 +11,8 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const fs = require("fs");
 const crypto = require("crypto");
+const session = require("express-session");
+const store = require("session-file-store")(session);
 
 // modules 참조
 const util = require("./modules/util");
@@ -23,10 +25,17 @@ const sqlPool = db.sqlPool;
 const sqlExec = db.sqlExec;
 const sqlErr = db.sqlErr;
 const mysql = db.mysql;
+const salt = "My Password Key";
 
 // app 초기화
 app.use("/", express.static("./public"));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(session({
+	secret: salt,
+	resave: false,
+	saveUninitialized: true,
+	store: new store()
+}));
 app.set("view engine", "pug");
 app.set("views", "./views");
 app.locals.pretty = true;
@@ -344,7 +353,6 @@ function memApi(req, res) {
 // 회원가입저장
 function memJoin(req, res) {
 	const vals = [];
-	const salt = "My Password Key";
 	var userpw = crypto.createHash("sha512").update(req.body.userpw + salt).digest("base64");
 	vals.push(req.body.userid);
 	vals.push(userpw);
@@ -367,5 +375,23 @@ function memJoin(req, res) {
 
 /* 로그인 처리 모듈 */
 function memLogin(req, res) {
-	
+	var userid = req.body.loginid;
+	var userpw = req.body.loginpw;
+	var result;
+	var sql = "";
+	var vals = [];
+	userpw = crypto.createHash("sha512").update(userpw + salt).digest("base64");
+	(async () => {
+		sql = "SELECT count(id) FROM member WHERE userid=? AND userpw=?";
+		vals.push(userid);
+		vals.push(userpw);
+		result = await sqlExec(sql, vals);
+		if(result[0][0]["count(id)"] == 1) {
+			req.session.userid = userid;
+			res.json({code: 200});
+		}
+		else {
+			res.json({code: 400});
+		}
+	})();
 }
