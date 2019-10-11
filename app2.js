@@ -307,7 +307,7 @@ app.post("/gbook_save", mt.upload.single("upfile"), (req, res) => {
 /* 회원가입 및 로그인 등 */
 
 /* 회원 라우터 */
-app.get("/mem/:type", memEdit); // 회원가입, 아이디찾기, 리스트, 정보, 로그인
+app.get("/mem/:type", memEdit); // 회원가입, 아이디찾기, 리스트, 정보, 로그인, 로그아웃
 app.post("/api-mem/:type", memApi);	// 회원가입시 각종 Ajax
 app.post("/mem/join", memJoin);	// 회원가입저장
 app.post("/mem/login", memLogin);	// 회원 로그인 모듈
@@ -329,6 +329,10 @@ function memEdit(req, res) {
 		case "login":
 			vals.title = "회원 로그인";
 			res.render("mem_login", vals);
+			break;
+		case "logout":
+			req.session.destroy();
+			res.redirect("/");
 			break;
 	}
 }
@@ -372,7 +376,10 @@ function memJoin(req, res) {
 	(async () => {
 		sql = "INSERT INTO member SET userid=?, userpw=?, username=?, tel=?, post=?, addr1=?, addr2=?, wtime=?, grade=?";
 		result = await sqlExec(sql, vals);
-		res.send(result);
+		res.send(util.alertLocation({
+			msg: "회원으로 가입되었습니다.",
+			loc: "/"
+		}));
 	})();
 }
 
