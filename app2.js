@@ -388,10 +388,14 @@ function memLogin(req, res) {
 		result = await sqlExec(sql, vals);
 		if(result[0][0]["count(id)"] == 1) {
 			req.session.userid = userid;
-			res.json({code: 200});
+			res.redirect("/");
 		}
 		else {
-			res.json({code: 400});
+			req.session.destroy();
+			res.send(util.alertLocation({
+				msg: "아이디와 패스워드가 틀렸습니다.",
+				loc: "/mem/login"
+			}));
 		}
 	})();
 }
