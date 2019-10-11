@@ -296,9 +296,10 @@ app.post("/gbook_save", mt.upload.single("upfile"), (req, res) => {
 /* 회원가입 및 로그인 등 */
 
 /* 회원 라우터 */
-app.get("/mem/:type", memEdit); // 회원가입, 아이디/비번찾기, 리스트, 정보
+app.get("/mem/:type", memEdit); // 회원가입, 아이디찾기, 리스트, 정보, 로그인
 app.post("/api-mem/:type", memApi);	// 회원가입시 각종 Ajax
 app.post("/mem/join", memJoin);	// 회원가입저장
+app.post("/mem/login", memLogin);	// 회원 로그인 모듈
 
 
 
@@ -313,10 +314,14 @@ function memEdit(req, res) {
 			vals.tel = util.telNum;
 			res.render("mem_in", vals);
 			break;
+		case "login":
+			vals.title = "회원 로그인";
+			res.render("mem_login", vals);
+			break;
 	}
 }
 
-/* 한수구현 - POST */
+/* 함수구현 - POST */
 function memApi(req, res) {
 	const type = req.params.type;
 	var sql = "";
@@ -358,4 +363,9 @@ function memJoin(req, res) {
 		result = await sqlExec(sql, vals);
 		res.send(result);
 	})();
+}
+
+/* 로그인 처리 모듈 */
+function memLogin(req, res) {
+	
 }

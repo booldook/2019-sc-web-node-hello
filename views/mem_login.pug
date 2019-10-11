@@ -1,0 +1,34 @@
+doctype html
+html(lang="ko")
+	head
+		include ./inc/header.pug
+	body
+		include ./inc/navi.pug
+		.container.my-3
+			.jumbotron
+				h2= `${title}`
+			form(name="loginForm" method="post" action="/mem/login" onsubmit="return memberLogin(this);")
+				table.table.table-bordered.mx-auto(style="max-width: 400px;")
+					colgroup
+						col(width="30%")
+						col
+					thead
+						tr
+							th.p-3.text-weight-bold.f-125(colspan="2")
+								i.fas.fa-key
+								span 회원 로그인
+					tbody
+						tr
+							td.bg-dark.text-light 아이디
+							td
+								input.form-control.mr-3(type="text" name="loginid" id="loginid" placeholder="아이디")
+						tr
+							td.bg-dark.text-light 패스워드
+							td
+								input.form-control(type="password" name="loginpw" id="loginpw")
+								span.userpw-cmt
+				.my-3.text-center
+					button.btn.btn-primary 로그인
+					button.btn.btn-success(type="button") 회원가입
+		include inc/footer.pug
+		include inc/script.pug
