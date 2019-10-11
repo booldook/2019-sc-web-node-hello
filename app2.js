@@ -51,8 +51,9 @@ app.get(["/page", "/page/:page"], (req, res) => {
 	if(!page) page = "미선택";
 	var title = "도서목록";
 	var css = "page";
-	var js = "page"
-	var vals = {page, title, css, js};
+	var js = "page";
+	var loginId = req.session.userid;
+	var vals = {page, title, css, js, loginId};
 	res.render("page", vals);
 });
 
@@ -66,10 +67,11 @@ type: /rm/1(id) - 선택된 방명록 삭제
 app.get(["/gbook", "/gbook/:type", "/gbook/:type/:id"], (req, res) => {
 	var type = req.params.type;
 	var id = req.params.id;
+	var loginId = req.session.userid;
 	if(type === undefined) type = "li";
 	if(type === "li" && id === undefined) id = 1;
 	if(id === undefined && type !== "in") res.redirect("/404.html");
-	var vals = {css: "gbook", js: "gbook"}
+	var vals = {css: "gbook", js: "gbook", loginId}
 	var pug;
 	var sql;
 	var sqlVal;
@@ -228,10 +230,11 @@ app.get("/download", (req, res) => {
 // 방명록 Ajax로 구현
 // 방명록을 Ajax 통신으로 데이터만 보내주는 방식
 app.get("/gbook_ajax", (req, res) => {
+	var loginId = req.session.userid;
 	const title = "방명록 - Ajax";
 	const css = "gbook_ajax";
 	const js = "gbook_ajax"
-	const vals = {title, css, js};
+	const vals = {title, css, js, loginId};
 	res.render("gbook_ajax", vals);
 });
 
