@@ -26,6 +26,7 @@ const sqlExec = db.sqlExec;
 const sqlErr = db.sqlErr;
 const mysql = db.mysql;
 const salt = "My Password Key";
+var loginId;
 
 // app 초기화
 app.use("/", express.static("./public"));
@@ -52,7 +53,6 @@ app.get(["/page", "/page/:page"], (req, res) => {
 	var title = "도서목록";
 	var css = "page";
 	var js = "page";
-	var loginId = req.session.userid;
 	var vals = {page, title, css, js, loginId};
 	res.render("page", vals);
 });
@@ -65,9 +65,9 @@ type: /up/1(id) - 선택된 방명록 수정
 type: /rm/1(id) - 선택된 방명록 삭제
 */
 app.get(["/gbook", "/gbook/:type", "/gbook/:type/:id"], (req, res) => {
+	loginId = req.session.userid;	// login: userid, 미login: undefined;
 	var type = req.params.type;
 	var id = req.params.id;
-	var loginId = req.session.userid;
 	if(type === undefined) type = "li";
 	if(type === "li" && id === undefined) id = 1;
 	if(id === undefined && type !== "in") res.redirect("/404.html");
@@ -98,7 +98,6 @@ app.get(["/gbook", "/gbook/:type", "/gbook/:type/:id"], (req, res) => {
 				result = await sqlExec(sql, sqlVal);
 				vals.datas = result[0];
 				for(let item of vals.datas) item.useIcon = util.iconChk(item.wtime, item.savefile);
-				console.log(vals.datas);
 				vals.title = "방명록";
 				vals.pager = pagerVal;
 				for(let item of vals.datas) item.wtime = util.dspDate(new Date(item.wtime));
@@ -230,7 +229,7 @@ app.get("/download", (req, res) => {
 // 방명록 Ajax로 구현
 // 방명록을 Ajax 통신으로 데이터만 보내주는 방식
 app.get("/gbook_ajax", (req, res) => {
-	var loginId = req.session.userid;
+	loginId = req.session.userid;
 	const title = "방명록 - Ajax";
 	const css = "gbook_ajax";
 	const js = "gbook_ajax"
@@ -318,8 +317,9 @@ app.post("/mem/login", memLogin);	// 회원 로그인 모듈
 
 /* 함수구현 - GET */
 function memEdit(req, res) {
+	loginId = req.session.userid;
 	const type = req.params.type;
-	const vals = {css: "mem", js: "mem"};
+	const vals = {css: "mem", js: "mem", loginId};
 	switch(type) {
 		case "join":
 			vals.title = "회원가입";

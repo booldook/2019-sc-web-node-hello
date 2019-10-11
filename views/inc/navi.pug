@@ -8,7 +8,12 @@
 			a(href="/gbook_ajax") 방명록(Ajax)
 		li.mr-3 
 			a(href="/gbook/in") 방명록 작성
-		li.mr-3 
-			a(href="/mem/join") 회원가입
-		li.mr-3 
-			a(href="/mem/login") 로그인
+		- if(loginId) {
+			li.mr-3 
+				a(href="/mem/logout") 로그아웃
+		- } else {
+			li.mr-3 
+				a(href="/mem/join") 회원가입
+			li.mr-3 
+				a(href="/mem/login") 로그인
+		- }
