@@ -10,6 +10,7 @@ app.listen(port, () => {
 const bodyParser = require("body-parser");
 const path = require("path");
 const fs = require("fs");
+const crypto = require("crypto");
 
 // modules 참조
 const util = require("./modules/util");
@@ -338,8 +339,10 @@ function memApi(req, res) {
 // 회원가입저장
 function memJoin(req, res) {
 	const vals = [];
+	const salt = "My Password Key";
+	var userpw = crypto.createHash("sha512").update(req.body.userpw + salt).digest("base64");
 	vals.push(req.body.userid);
-	vals.push(req.body.userpw);
+	vals.push(userpw);
 	vals.push(req.body.username);
 	vals.push(req.body.tel1 + "-" + req.body.tel2 + "-" + req.body.tel3);
 	vals.push(req.body.post);
@@ -349,6 +352,7 @@ function memJoin(req, res) {
 	vals.push(2);
 	var sql = "";
 	var result = {};
+	
 	(async () => {
 		sql = "INSERT INTO member SET userid=?, userpw=?, username=?, tel=?, post=?, addr1=?, addr2=?, wtime=?, grade=?";
 		result = await sqlExec(sql, vals);
