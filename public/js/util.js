@@ -144,7 +144,7 @@ function pagerMaker($pager, grpCnt, divCnt, total, page, cb) {
 	html += '</li>';
 	$pager.html(html);
 	$(".page-item").css({"cursor": "pointer"});
-	$(".page-item").click(cb);
+	$(".page-item").click(cb);	// gbook_ajax
 }
 $(".page-item").click(function(){
 	var n = $(this).data("page");

@@ -69,9 +69,9 @@ app.get(["/gbook", "/gbook/:type", "/gbook/:type/:id"], (req, res) => {
 	// loginUser = req.session.user;	// login: userid, 미login: undefined;
 	var type = req.params.type;
 	var id = req.params.id;
-	if(type === undefined) type = "li";
-	if(type === "li" && id === undefined) id = 1;
-	if(id === undefined && type !== "in") res.redirect("/404.html");
+	if(!util.nullChk(type)) type = "li";
+	if(type === "li" && !util.nullChk(id)) id = 1;
+	if(!util.nullChk(id) && type !== "in") res.redirect("/404.html");
 	var vals = {css: "gbook", js: "gbook", loginUser: req.session.user}
 	var pug;
 	var sql;
@@ -88,8 +88,7 @@ app.get(["/gbook", "/gbook/:type", "/gbook/:type/:id"], (req, res) => {
 				var totCnt = 0;
 				var page = id;
 				var divCnt = 3;
-				var grpCnt = req.query.grpCnt;
-				if(grpCnt === undefined || typeof grpCnt !== "number") grpCnt = 5;
+				var grpCnt = 5;
 				sql = "SELECT count(id) FROM gbook";
 				result = await sqlExec(sql);
 				totCnt = result[0][0]["count(id)"];
@@ -340,7 +339,7 @@ function memEdit(req, res) {
 			var totCnt = 0;
 			var page = req.params.id;
 			var divCnt = 3;
-			var grpCnt = 1;
+			var grpCnt = 10;
 			if(!util.nullChk(page)) page = 1;
 			vals.title = "회원 리스트 - 관리자";
 			(async () => {
