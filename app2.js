@@ -26,7 +26,7 @@ const sqlExec = db.sqlExec;
 const sqlErr = db.sqlErr;
 const mysql = db.mysql;
 const salt = "My Password Key";
-var loginId;
+var loginUser = {};
 
 // app 초기화
 app.use("/", express.static("./public"));
@@ -53,7 +53,7 @@ app.get(["/page", "/page/:page"], (req, res) => {
 	var title = "도서목록";
 	var css = "page";
 	var js = "page";
-	var vals = {page, title, css, js, loginId};
+	var vals = {page, title, css, js, loginUser};
 	res.render("page", vals);
 });
 
@@ -65,13 +65,14 @@ type: /up/1(id) - 선택된 방명록 수정
 type: /rm/1(id) - 선택된 방명록 삭제
 */
 app.get(["/gbook", "/gbook/:type", "/gbook/:type/:id"], (req, res) => {
-	loginId = req.session.userid;	// login: userid, 미login: undefined;
+	/* req.session.user = {id: userid, name: username, grade: grade} */
+	loginUser = req.session.user;	// login: userid, 미login: undefined;
 	var type = req.params.type;
 	var id = req.params.id;
 	if(type === undefined) type = "li";
 	if(type === "li" && id === undefined) id = 1;
 	if(id === undefined && type !== "in") res.redirect("/404.html");
-	var vals = {css: "gbook", js: "gbook", loginId}
+	var vals = {css: "gbook", js: "gbook", loginUser}
 	var pug;
 	var sql;
 	var sqlVal;
@@ -229,11 +230,11 @@ app.get("/download", (req, res) => {
 // 방명록 Ajax로 구현
 // 방명록을 Ajax 통신으로 데이터만 보내주는 방식
 app.get("/gbook_ajax", (req, res) => {
-	loginId = req.session.userid;
+	loginUser = req.session.user;
 	const title = "방명록 - Ajax";
 	const css = "gbook_ajax";
 	const js = "gbook_ajax"
-	const vals = {title, css, js, loginId};
+	const vals = {title, css, js, loginUser};
 	res.render("gbook_ajax", vals);
 });
 
@@ -317,9 +318,9 @@ app.post("/mem/login", memLogin);	// 회원 로그인 모듈
 
 /* 함수구현 - GET */
 function memEdit(req, res) {
-	loginId = req.session.userid;
+	loginUser = req.session.user;
 	const type = req.params.type;
-	const vals = {css: "mem", js: "mem", loginId};
+	const vals = {css: "mem", js: "mem", loginUser};
 	switch(type) {
 		case "join":
 			vals.title = "회원가입";
@@ -396,8 +397,14 @@ function memLogin(req, res) {
 		vals.push(userid);
 		vals.push(userpw);
 		result = await sqlExec(sql, vals);
+		console.log(result);
 		if(result[0][0]["count(id)"] == 1) {
-			req.session.userid = userid;
+			sql = "SELECT username, grade FROM member WHERE userid='"+userid+"'";
+			result = await sqlExec(sql);
+			req.session.userLogin = {};
+			req.session.userLogin.id = userid;
+			req.session.userLogin.name = result[0][0].username;
+			req.session.userLogin.grade = result[0][0].grade;
 			res.redirect("/");
 		}
 		else {
