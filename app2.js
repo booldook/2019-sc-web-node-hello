@@ -308,7 +308,7 @@ app.post("/gbook_save", mt.upload.single("upfile"), (req, res) => {
 /* 회원가입 및 로그인 등 */
 
 /* 회원 라우터 */
-app.get("/mem/:type", memEdit); // 회원가입, 아이디찾기, 리스트, 정보, 로그인, 로그아웃
+app.get(["/mem/:type", "/mem/:type/:id"], memEdit); // 회원가입, 아이디찾기, 리스트, 정보, 로그인, 로그아웃
 app.post("/api-mem/:type", memApi);	// 회원가입시 각종 Ajax
 app.post("/mem/join", memJoin);	// 회원가입저장
 app.post("/mem/login", memLogin);	// 회원 로그인 모듈
@@ -336,11 +336,21 @@ function memEdit(req, res) {
 			res.redirect("/");
 			break;
 		case "list":
+			var totCnt = 0;
+			var page = req.params.id;
+			var divCnt = 3;
+			var grpCnt = 3;
+			if(!util.nullChk(page)) page = 1;
 			vals.title = "회원 리스트 - 관리자";
 			(async () => {
-				sql = "SELECT * FROM member ORDER BY id DESC";
+				sql = "SELECT count(id) FROM member";
 				result = await sqlExec(sql);
+				totCnt = result[0][0]["count(id)"];
+				const pagerVal = pager.pagerMaker({totCnt, page, grpCnt});
+				sql = "SELECT * FROM member ORDER BY id DESC limit ?, ?";
+				result = await sqlExec(sql, [pagerVal.stRec, pagerVal.grpCnt]);
 				vals.lists = result[0];
+				vals.pager = pagerVal;
 				if(util.adminChk(req.session.user)) res.render("mem_list", vals);
 				else res.send(util.alertAdmin());
 			})();
