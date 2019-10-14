@@ -341,9 +341,9 @@ function memEdit(req, res) {
 				sql = "SELECT * FROM member ORDER BY id DESC";
 				result = await sqlExec(sql);
 				vals.lists = result[0];
+				if(util.adminChk(req.session.user)) res.render("mem_list", vals);
+				else res.send(util.alertAdmin());
 			})();
-			if(util.adminChk(req.session.user)) res.render("mem_list", vals);
-			else res.send(util.alertAdmin());
 			break;
 	}
 }
