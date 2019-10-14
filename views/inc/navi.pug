@@ -8,11 +8,11 @@
 			a(href="/gbook_ajax") 방명록(Ajax)
 		li.mr-3 
 			a(href="/gbook/in") 방명록 작성
-		- if(loginId) {
+		- if(loginUser) {
 			li.mr-3.position-relative 
 				a 
 					i.fas.fa-user-circle.mr-3
-					span= loginName
+					span= loginUser.name
 				ul.mem-edit
 					li
 						a(href="/mem/edit") 정보수정
@@ -24,7 +24,9 @@
 			li.mr-3 
 				a(href="/mem/login") 로그인
 		- }
-		- if(loginGrade == 9) {
-			li.mr-3 
-				a(href="/mem/list") 회원리스트
+		- if(loginUser) {
+			- if(loginUser.grade == 9) {
+				li.mr-3 
+					a(href="/mem/list") 회원리스트
+			- }
 		- }

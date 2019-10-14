@@ -397,14 +397,13 @@ function memLogin(req, res) {
 		vals.push(userid);
 		vals.push(userpw);
 		result = await sqlExec(sql, vals);
-		console.log(result);
 		if(result[0][0]["count(id)"] == 1) {
 			sql = "SELECT username, grade FROM member WHERE userid='"+userid+"'";
 			result = await sqlExec(sql);
-			req.session.userLogin = {};
-			req.session.userLogin.id = userid;
-			req.session.userLogin.name = result[0][0].username;
-			req.session.userLogin.grade = result[0][0].grade;
+			req.session.user = {};
+			req.session.user.id = userid;
+			req.session.user.name = result[0][0].username;
+			req.session.user.grade = result[0][0].grade;
 			res.redirect("/");
 		}
 		else {
