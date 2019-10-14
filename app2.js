@@ -66,13 +66,13 @@ type: /rm/1(id) - 선택된 방명록 삭제
 */
 app.get(["/gbook", "/gbook/:type", "/gbook/:type/:id"], (req, res) => {
 	/* req.session.user = {id: userid, name: username, grade: grade} */
-	loginUser = req.session.user;	// login: userid, 미login: undefined;
+	// loginUser = req.session.user;	// login: userid, 미login: undefined;
 	var type = req.params.type;
 	var id = req.params.id;
 	if(type === undefined) type = "li";
 	if(type === "li" && id === undefined) id = 1;
 	if(id === undefined && type !== "in") res.redirect("/404.html");
-	var vals = {css: "gbook", js: "gbook", loginUser}
+	var vals = {css: "gbook", js: "gbook", loginUser: req.session.user}
 	var pug;
 	var sql;
 	var sqlVal;
@@ -230,11 +230,11 @@ app.get("/download", (req, res) => {
 // 방명록 Ajax로 구현
 // 방명록을 Ajax 통신으로 데이터만 보내주는 방식
 app.get("/gbook_ajax", (req, res) => {
-	loginUser = req.session.user;
+	//loginUser = req.session.user;
 	const title = "방명록 - Ajax";
 	const css = "gbook_ajax";
 	const js = "gbook_ajax"
-	const vals = {title, css, js, loginUser};
+	const vals = {title, css, js, loginUser: req.session.user};
 	res.render("gbook_ajax", vals);
 });
 
@@ -318,9 +318,9 @@ app.post("/mem/login", memLogin);	// 회원 로그인 모듈
 
 /* 함수구현 - GET */
 function memEdit(req, res) {
-	loginUser = req.session.user;
+	// loginUser = req.session.user;
 	const type = req.params.type;
-	const vals = {css: "mem", js: "mem", loginUser};
+	const vals = {css: "mem", js: "mem", loginUser: req.session.user};
 	switch(type) {
 		case "join":
 			vals.title = "회원가입";
@@ -393,13 +393,11 @@ function memLogin(req, res) {
 	var vals = [];
 	userpw = crypto.createHash("sha512").update(userpw + salt).digest("base64");
 	(async () => {
-		sql = "SELECT count(id) FROM member WHERE userid=? AND userpw=?";
+		sql = "SELECT * FROM member WHERE userid=? AND userpw=?";
 		vals.push(userid);
 		vals.push(userpw);
 		result = await sqlExec(sql, vals);
-		if(result[0][0]["count(id)"] == 1) {
-			sql = "SELECT username, grade FROM member WHERE userid='"+userid+"'";
-			result = await sqlExec(sql);
+		if(result[0].length == 1) {
 			req.session.user = {};
 			req.session.user.id = userid;
 			req.session.user.name = result[0][0].username;
