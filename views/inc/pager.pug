@@ -1,5 +1,4 @@
-ul.pager.my-4.pagination.justify-content-center
-
+ul.pager.my-4.pagination.justify-content-center(data-pager-name=`${pager.link}`)
 	if pager.prevShow
 		li.page-item.page-first(data-page=`${pager.prev}`, style="cursor: pointer;")
 			span.page-link

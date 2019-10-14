@@ -143,11 +143,13 @@ function pagerMaker($pager, grpCnt, divCnt, total, page, cb) {
 	html += '<span class="page-link"><i class="fas fa-angle-double-right"></i></span>';
 	html += '</li>';
 	$pager.html(html);
-	$(".page-item").css({
-		"cursor": "pointer"
-	});
+	$(".page-item").css({"cursor": "pointer"});
 	$(".page-item").click(cb);
 }
+$(".page-item").click(function(){
+	var n = $(this).data("page");
+	if(n !== undefined) location.href = $(".pager").data("pager-name")+n;
+});
 
 var imgExt = ["jpg", "jpeg", "png", "gif"];
 var fileExt = ["hwp", "xls", "xlsx", "ppt", "pptx", "doc", "docx", "txt", "zip", "pdf"];

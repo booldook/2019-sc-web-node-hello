@@ -94,6 +94,7 @@ app.get(["/gbook", "/gbook/:type", "/gbook/:type/:id"], (req, res) => {
 				result = await sqlExec(sql);
 				totCnt = result[0][0]["count(id)"];
 				const pagerVal = pager.pagerMaker({totCnt, page, grpCnt});
+				pagerVal.link = "/gbook/li/";
 				sql = "SELECT * FROM gbook ORDER BY id DESC limit ?, ?";
 				sqlVal = [pagerVal.stRec, pagerVal.grpCnt];
 				result = await sqlExec(sql, sqlVal);
@@ -339,7 +340,7 @@ function memEdit(req, res) {
 			var totCnt = 0;
 			var page = req.params.id;
 			var divCnt = 3;
-			var grpCnt = 3;
+			var grpCnt = 1;
 			if(!util.nullChk(page)) page = 1;
 			vals.title = "회원 리스트 - 관리자";
 			(async () => {
@@ -347,6 +348,7 @@ function memEdit(req, res) {
 				result = await sqlExec(sql);
 				totCnt = result[0][0]["count(id)"];
 				const pagerVal = pager.pagerMaker({totCnt, page, grpCnt});
+				pagerVal.link = "/mem/list/";
 				sql = "SELECT * FROM member ORDER BY id DESC limit ?, ?";
 				result = await sqlExec(sql, [pagerVal.stRec, pagerVal.grpCnt]);
 				vals.lists = result[0];
