@@ -1,8 +1,8 @@
-const zp = n => {
+module.exports.zp = n => {
 	n<10 ? n = "0" + n : n = n;
 	return n;
 }
-const dspDate = (d, type) => {
+module.exports.dspDate = (d, type) => {
 	var type = typeof type !== 'undefined' ?  type : "0";
 	var monthArr = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
 	var year = d.getFullYear() + "년 ";	// 2019
@@ -42,13 +42,13 @@ const dspDate = (d, type) => {
 			break;
 		default :
 			// 2019-09-03 14:08:09
-			returnStr = d.getFullYear() + '-' + zp(d.getMonth() + 1) + '-' + zp(d.getDate()) + " " + zp(d.getHours()) + ":" + zp(d.getMinutes()) + ":" + zp(d.getSeconds());
+			returnStr = d.getFullYear() + '-' + module.exports.zp(d.getMonth() + 1) + '-' + module.exports.zp(d.getDate()) + " " + module.exports.zp(d.getHours()) + ":" + module.exports.zp(d.getMinutes()) + ":" + module.exports.zp(d.getSeconds());
 			break;
 	}
 	return returnStr;
 }
 
-const alertLocation = (obj) => {
+module.exports.alertLocation = (obj) => {
 	var html = '<meta charset="utf-8">';
 	html += '<script>';
 	html += 'alert("'+obj.msg+'");';
@@ -57,27 +57,37 @@ const alertLocation = (obj) => {
 	return html;
 }
 
-const nullChk = (val) => {
+module.exports.alertAdmin = () => {
+	var html = '<meta charset="utf-8">';
+	html += '<script>';
+	html += 'alert("정상적인 접근이 아닙니다.");';
+	html += 'location.href = "/";';
+	html += '</script>';
+	return html;
+}
+
+module.exports.nullChk = (val) => {
 	if(val !== undefined && val !== null && val !== "") return true;
 	else return false;
 }
 
-const iconChk = (dt, file) => {
+module.exports.iconChk = (dt, file) => {
 	const obj = {};
-	if(nullChk(file)) obj[file.split(".").pop()] = true;
+	if(module.exports.nullChk(file)) obj[file.split(".").pop()] = true;
 	var tsFile = new Date(dt).getTime();
 	var tsNow = new Date().getTime() - (24 * 60 * 60 * 1000);	//현재시간 - 24시
 	if(tsFile >= tsNow) obj.new = true;
 	return obj;
 }
 
-const telNum = ["010", "011", "016", "017", "018", "019", "02", "051", "053", "032", "062", "042", "052", "044", "031", "033", "043", "041", "063", "061", "054", "055", "064"];
+module.exports.telNum = ["010", "011", "016", "017", "018", "019", "02", "051", "053", "032", "062", "042", "052", "044", "031", "033", "043", "041", "063", "061", "054", "055", "064"];
 
-module.exports = {
-	dspDate,
-	alertLocation,
-	zp,
-	nullChk,
-	iconChk,
-	telNum
+module.exports.adminChk = (obj) => {
+	if(module.exports.nullChk(obj)) {
+		if(obj.grade == 9) return true;
+		else return false;
+	}
+	else {
+		return false;
+	}
 }

@@ -335,6 +335,10 @@ function memEdit(req, res) {
 			req.session.destroy();
 			res.redirect("/");
 			break;
+		case "list":
+			if(util.adminChk(req.session.user)) res.render("mem_list", vals);
+			else res.send(util.alertAdmin());
+			break;
 	}
 }
 
