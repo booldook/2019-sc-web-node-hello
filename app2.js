@@ -312,6 +312,7 @@ app.get(["/mem/:type", "/mem/:type/:id"], memEdit); // 회원가입, 아이디�
 app.post("/api-mem/:type", memApi);	// 회원가입시 각종 Ajax
 app.post("/mem/join", memJoin);	// 회원가입저장
 app.post("/mem/login", memLogin);	// 회원 로그인 모듈
+app.post("/mem/update", memUpdate);	// 회원 정보 수정
 
 
 
@@ -411,6 +412,29 @@ function memJoin(req, res) {
 		result = await sqlExec(sql, vals);
 		res.send(util.alertLocation({
 			msg: "회원으로 가입되었습니다.",
+			loc: "/"
+		}));
+	})();
+}
+
+// 회원정보수정
+function memUpdate(req, res) {
+	const vals = [];
+	var userpw = crypto.createHash("sha512").update(req.body.userpw + salt).digest("base64");
+	vals.push(userpw);
+	vals.push(req.body.username);
+	vals.push(req.body.tel1 + "-" + req.body.tel2 + "-" + req.body.tel3);
+	vals.push(req.body.post);
+	vals.push(req.body.addr1 + req.body.addr2);
+	vals.push(req.body.addr3);
+	vals.push(req.session.user.id);
+	var sql = "";
+	var result = {};
+	(async () => {
+		sql = "UPDATE member SET userpw=?, username=?, tel=?, post=?, addr1=?, addr2=? WHERE userid=?";
+		result = await sqlExec(sql, vals);
+		if(result[0].affectedRows == 1) res.send(util.alertLocation({
+			msg: "정보가 수정되었습니다.",
 			loc: "/"
 		}));
 	})();

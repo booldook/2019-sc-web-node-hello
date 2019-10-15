@@ -7,7 +7,7 @@ html(lang="ko")
 		.container.my-3
 			.jumbotron
 				h2= `${title}`
-			form(name="memberForm" method="post" action="/mem/update" onsubmit="return memberUpdate(this);")
+			form(name="memberForm" method="post" action="/mem/update" onsubmit="return memberJoin(this);")
 				table.table.table-bordered
 					colgroup
 						col(width="20%")
@@ -16,7 +16,7 @@ html(lang="ko")
 						tr
 							td.bg-dark.text-light 아이디
 							td.form-inline
-								input.form-control.mr-3(type="text" name="userid" id="userid" placeholder="아이디" style="max-width: 200px;" readonly  value=`${myData.userid}`)
+								input.form-control.mr-3(type="text" name="userid" id="userid" placeholder="아이디" style="max-width: 200px;" readonly disabled value=`${myData.userid}` data-use="T")
 						tr
 							td.bg-dark.text-light 패스워드
 							td.form-inline
@@ -71,8 +71,8 @@ html(lang="ko")
 								input.form-control.w-50(type="text" name="addr3" id="addr3" placeholder="상세주소" value=`${myData.addr2}`)
 								input.form-control(type="text" name="addr2" id="addr2" placeholder="참고항목" style="width: 30%; margin-left: 8px;" value=`${addr2}`)
 				.my-3.text-center
-					button.btn.btn-primary 회원가입
-					button.btn.btn-danger(type="reset") 다시작성
+					button.btn.btn-success 회원정보수정
+					button.btn.btn-danger(type="button" onclick="location.href='/';") 취소
 		include inc/footer.pug
 		script(src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js")
 		script(src="/js/post_search.js")
