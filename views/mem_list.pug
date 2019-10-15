@@ -15,7 +15,7 @@ html(lang="ko")
 					col(width="13%")
 					col(width="15%")
 					col
-					col(width="12%")
+					col(width="8%")
 				thead.thead-dark
 					tr
 						th No.
@@ -38,8 +38,8 @@ html(lang="ko")
 								br
 								span= `${item.addr1} ${item.addr2}`
 							td
-								button.btn.btn-sm.btn-success 수정
-								button.btn.btn-sm.btn-danger 삭제
+								if item.grade < 9
+									button.btn.btn-sm.btn-danger(onclick=`if(confirm('정말로 삭제?')){location.href='/mem/remove?id=${item.id}';}`) 삭제
 			include ./inc/pager.pug
 		include ./inc/footer.pug
 		include ./inc/script.pug

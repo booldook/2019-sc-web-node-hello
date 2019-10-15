@@ -308,7 +308,7 @@ app.post("/gbook_save", mt.upload.single("upfile"), (req, res) => {
 /* 회원가입 및 로그인 등 */
 
 /* 회원 라우터 */
-app.get(["/mem/:type", "/mem/:type/:id"], memEdit); // 회원가입, 아이디찾기, 리스트, 정보, 로그인, 로그아웃
+app.get(["/mem/:type", "/mem/:type/:id"], memEdit); // 회원가입, 아이디찾기, 리스트, 정보, 로그인, 로그아웃, 삭제
 app.post("/api-mem/:type", memApi);	// 회원가입시 각종 Ajax
 app.post("/mem/join", memJoin);	// 회원가입저장
 app.post("/mem/login", memLogin);	// 회원 로그인 모듈
@@ -345,6 +345,24 @@ function memEdit(req, res) {
 				vals.tel = util.telNum;
 				res.render("mem_up", vals);
 			})();
+			break;
+		case "remove":
+			if(util.adminChk(req.session.user)) {
+				var id = req.query.id;
+				(async () => {
+					sql = "DELETE FROM member WHERE id="+id;
+					result = await sqlExec(sql);
+					if(result[0].affectedRows == 1) res.send(util.alertLocation({
+						msg: "삭제되었습니다.",
+						loc: "/mem/list"
+					}));
+					else res.send(util.alertLocation({
+						msg: "삭제가 실패하였습니다.",
+						loc: "/mem/list"
+					}));
+				})();
+			}
+			else res.send(util.alertAdmin());
 			break;
 		case "list":
 			var totCnt = 0;
@@ -425,7 +443,7 @@ function memUpdate(req, res) {
 	vals.push(req.body.username);
 	vals.push(req.body.tel1 + "-" + req.body.tel2 + "-" + req.body.tel3);
 	vals.push(req.body.post);
-	vals.push(req.body.addr1 + req.body.addr2);
+	vals.push(req.body.addr1 + " " + req.body.addr2);
 	vals.push(req.body.addr3);
 	vals.push(req.session.user.id);
 	var sql = "";
