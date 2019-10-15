@@ -12,12 +12,13 @@ html(lang="ko")
 					li.col-md-2
 						.text-primary 작성자
 					li.col-md-10
-						input.form-control(type="text" name="writer" placeholder="작성자") 
-				ul.row.py-1
-					li.col-md-2
-						.text-primary 비밀번호
-					li.col-md-10
-						input.form-control(type="password" name="pw") 
+						input.form-control(type="text" name="writer" placeholder="작성자")
+				if !loginUser 
+					ul.row.py-1
+						li.col-md-2
+							.text-primary 비밀번호
+						li.col-md-10
+							input.form-control(type="password" name="pw") 
 				ul.row.py-1
 					li.col-md-2
 						.text-primary 남기실 말 

@@ -275,9 +275,12 @@ app.get("/gbook_ajax/:page", (req, res) => {
 
 // router 영역 - POST
 app.post("/gbook_save", mt.upload.single("upfile"), (req, res) => {
-	const writer = req.body.writer;
-	const pw = req.body.pw;
-	const comment = req.body.comment;
+	var writer = req.body.writer;
+	var comment = req.body.comment;
+	var pw = "";
+	if(!req.session.user.id) pw = req.body.pw;
+	var userid = "";
+	if(req.session.user.id) userid = req.session.user.id;
 	var orifile = "";
 	var savefile = "";
 	if(req.file) {
@@ -286,8 +289,8 @@ app.post("/gbook_save", mt.upload.single("upfile"), (req, res) => {
 	}
 	var result;
 
-	const sql = "INSERT INTO gbook SET comment=?, wtime=?, writer=?, pw=?, orifile=?, savefile=?";
-	const vals = [comment, util.dspDate(new Date()), writer, pw, orifile, savefile];
+	var sql = "INSERT INTO gbook SET comment=?, wtime=?, writer=?, pw=?, orifile=?, savefile=?, userid=?";
+	var vals = [comment, util.dspDate(new Date()), writer, pw, orifile, savefile, userid];
 	(async () => {
 		result = await sqlExec(sql, vals);
 		if(result[0].affectedRows > 0) {
