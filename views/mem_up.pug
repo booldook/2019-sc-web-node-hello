@@ -54,13 +54,22 @@ html(lang="ko")
 						tr
 							td.bg-dark.text-light 도로명 주소
 							td
-								input.form-control(type="text" name="addr1" id="addr1" readonly value=`${myData.addr1}`)
+								- var addrIndex = myData.addr1.indexOf(" (")
+								- var addr1 = ""
+								- var addr2 = ""
+								- if(addrIndex > -1) {
+								- addr1 = myData.addr1.substr(0, addrIndex)
+								- addr2 = myData.addr1.substr(addrIndex + 1)
+								- } else {
+								- addr1 = myData.addr1;
+								- }
+								input.form-control(type="text" name="addr1" id="addr1" readonly value=`${addr1}`)
 								span(id="guide" style="color: #999; display: none")
 						tr
 							td.bg-dark.text-light 상세주소
 							td.form-inline
 								input.form-control.w-50(type="text" name="addr3" id="addr3" placeholder="상세주소" value=`${myData.addr2}`)
-								input.form-control(type="text" name="addr2" id="addr2" placeholder="참고항목" style="width: 30%; margin-left: 8px;")
+								input.form-control(type="text" name="addr2" id="addr2" placeholder="참고항목" style="width: 30%; margin-left: 8px;" value=`${addr2}`)
 				.my-3.text-center
 					button.btn.btn-primary 회원가입
 					button.btn.btn-danger(type="reset") 다시작성
