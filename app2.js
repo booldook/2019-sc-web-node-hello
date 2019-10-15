@@ -278,9 +278,9 @@ app.post("/gbook_save", mt.upload.single("upfile"), (req, res) => {
 	var writer = req.body.writer;
 	var comment = req.body.comment;
 	var pw = "";
-	if(!req.session.user.id) pw = req.body.pw;
 	var userid = "";
-	if(req.session.user.id) userid = req.session.user.id;
+	if(req.session.user) userid = req.session.user.id;
+	else pw = req.body.pw;
 	var orifile = "";
 	var savefile = "";
 	if(req.file) {
@@ -288,7 +288,6 @@ app.post("/gbook_save", mt.upload.single("upfile"), (req, res) => {
 		savefile = req.file.filename;
 	}
 	var result;
-
 	var sql = "INSERT INTO gbook SET comment=?, wtime=?, writer=?, pw=?, orifile=?, savefile=?, userid=?";
 	var vals = [comment, util.dspDate(new Date()), writer, pw, orifile, savefile, userid];
 	(async () => {

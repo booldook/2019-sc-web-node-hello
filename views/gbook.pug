@@ -51,8 +51,17 @@ html(lang="ko")
 								if item.useIcon.pdf
 									img.ml-2(src="/img/icon/pdf.png")
 							td
-								button.btn.btn-info.btn-sm.mr-1.btChg 수정
-								button.btn.btn-danger.btn-sm.btRev 삭제
+								- if(loginUser) {
+								- 	if(loginUser.id == item.userid || loginUser.grade == 9) {
+											button.btn.btn-info.btn-sm.mr-1.btChg 수정
+											button.btn.btn-danger.btn-sm.btRev 삭제	
+								- 	}
+								- } else {
+								- 	if(item.userid == "") {
+											button.btn.btn-info.btn-sm.mr-1.btChg 수정
+											button.btn.btn-danger.btn-sm.btRev 삭제
+								- 	}
+								- }
 			include ./inc/pager.pug
 		include ./inc/modal_vi.pug
 		include ./inc/modal_up.pug
