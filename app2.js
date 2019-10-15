@@ -335,11 +335,22 @@ function memEdit(req, res) {
 			req.session.destroy();
 			res.redirect("/");
 			break;
+		case "edit":
+			(async () => {
+				sql = "SELECT * FROM member WHERE userid='"+req.session.user.id+"'";
+				result = await sqlExec(sql);
+				vals.title = "회원정보수정";
+				vals.myData = result[0][0];
+				vals.tel = util.telNum;
+				res.render("mem_up", vals);
+			})();
+			break;
 		case "list":
 			var totCnt = 0;
 			var page = req.params.id;
 			var divCnt = 3;
 			var grpCnt = 10;
+			
 			if(!util.nullChk(page)) page = 1;
 			vals.title = "회원 리스트 - 관리자";
 			(async () => {
