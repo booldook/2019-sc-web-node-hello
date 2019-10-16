@@ -233,11 +233,14 @@ app.post("/api/:type", mt.upload.single("upfile"), (req, res) => {
 					// res.json({sql, vals});
 					result = await sqlExec(sql, vals);
 					if(result[0].affectedRows == 1) {
-						obj.msg = "수정되었습니다.";
 						// 기존파일 삭제하기
 						if(req.file && util.nullChk(oldfile)) fs.unlinkSync(path.join(__dirname, "/public/uploads/"+mt.getDir(oldfile)+"/"+oldfile));
+						obj.msg = "수정되었습니다.";
 					}
-					else obj.msg = "비밀번호가 올바르지 않습니다.";
+					else {
+						if(req.session.user) obj.msg = "수정이 실행되지 않았습니다.";
+						else obj.msg = "비밀번호가 올바르지 않습니다.";
+					}
 					obj.loc = "/gbook/li/"+page;
 					res.send(util.alertLocation(obj));
 				})();
