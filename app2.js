@@ -167,12 +167,14 @@ app.post("/api/:type", mt.upload.single("upfile"), (req, res) => {
 					savefile = result[0][0].savefile;
 					// 실제 데이터베이스 삭제
 					vals.push(id);
-					if(req.session.user.grade == 9) {
-						sql = "DELETE FROM gbook WHERE id=?";
-					}
-					else if(req.session.user.id) {
-						vals.push(req.session.user.id);
-						sql = "DELETE FROM gbook WHERE id=? AND userid=?";
+					if(req.session.user) {
+						if(req.session.user.grade == 9) {
+							sql = "DELETE FROM gbook WHERE id=?";
+						}
+						else {
+							vals.push(req.session.user.id);
+							sql = "DELETE FROM gbook WHERE id=? AND userid=?";
+						}
 					}
 					else {
 						vals.push(pw);
@@ -183,7 +185,7 @@ app.post("/api/:type", mt.upload.single("upfile"), (req, res) => {
 						// 파일삭제
 						if(util.nullChk(savefile)) fs.unlinkSync(path.join(__dirname, "/public/uploads/"+mt.getDir(savefile)+"/"+savefile));
 						// 삭제결과 리턴
-						if(req.session.user.id) res.json({code: 200});
+						if(req.session.user) res.json({code: 200});
 						else {
 							obj.msg = "삭제되었습니다.";
 							obj.loc = "/gbook/li/"+page;
@@ -191,7 +193,7 @@ app.post("/api/:type", mt.upload.single("upfile"), (req, res) => {
 						}
 					}
 					else {
-						if(req.session.user.id) res.json({code: 500});
+						if(req.session.user) res.json({code: 500});
 						else {
 							obj.msg = "비밀번호가 올바르지 않습니다.";
 							obj.loc = "/gbook/li/"+page;
