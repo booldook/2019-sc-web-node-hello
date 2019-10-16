@@ -159,7 +159,7 @@ app.post("/api/:type", mt.upload.single("upfile"), (req, res) => {
 	}
 	switch(type) {
 		case "remove":
-			if((id != undefined && pw != undefined) || (util.nullChk(req.session.user.id) && id != undefined)) {
+			if((id != undefined && pw != undefined) || (req.session.user && id != undefined)) {
 				(async () => {
 					// 첨부파일 가져오기
 					sql = "SELECT savefile FROM gbook WHERE id="+id;
@@ -202,25 +202,35 @@ app.post("/api/:type", mt.upload.single("upfile"), (req, res) => {
 					}
 				})();
 			}
+			else res.redirect("/500.html");
 			break;
 		case "update":
-			if(id === undefined || pw === undefined) res.redirect("/500.html");
-			else {
-				vals.push(writer);
-				vals.push(comment);
-				if(req.file) vals.push(orifile);
-				if(req.file) vals.push(savefile);
-				vals.push(id);
-				vals.push(pw);
+			if((id != undefined && pw != undefined) || (req.session.user && id != undefined)) {
+				vals.push(writer);	//0
+				vals.push(comment);	//1
+				if(req.file) vals.push(orifile);	//2
+				if(req.file) vals.push(savefile);	//3
+				vals.push(id);	//4
 				(async () => {
 					// 첨부파일 가져오기
 					sql = "SELECT savefile FROM gbook WHERE id="+id;
 					result = await sqlExec(sql);
 					oldfile = result[0][0].savefile;
 					// 실제 데이터 수정
-					sql = "UPDATE gbook SET writer=?, comment=? ";
-					if(req.file) sql += ", orifile=?, savefile=? ";
-					sql += " WHERE id=? AND pw=?";
+					sql = "UPDATE gbook SET writer=?, comment=? ";	//0, 1
+					if(req.file) sql += ", orifile=?, savefile=? ";	//2, 3
+					if(req.session.user) {
+						if(req.session.user.grade == 9) sql += " WHERE id=?";	//4
+						else {
+							vals.push(req.session.user.id);	//5
+							sql += " WHERE id=? AND userid=?";	//4, 5
+						}
+					}
+					else {
+						vals.push(pw);	//5
+						sql += " WHERE id=? AND pw=?";	//4, 5
+					}
+					// res.json({sql, vals});
 					result = await sqlExec(sql, vals);
 					if(result[0].affectedRows == 1) {
 						obj.msg = "수정되었습니다.";
@@ -232,6 +242,7 @@ app.post("/api/:type", mt.upload.single("upfile"), (req, res) => {
 					res.send(util.alertLocation(obj));
 				})();
 			}
+			else res.redirect("/500.html");
 			break;
 		default :
 			res.redirect("/404.html");

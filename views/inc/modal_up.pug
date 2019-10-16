@@ -11,11 +11,12 @@
 								td.bg-dark.text-light.text-center 작성자
 								td
 									input.form-control(name="writer")
-							tr
-								td.bg-dark.text-light.text-center 비밀번호
-								td
-									input.form-control(name="pw", type="password")
-									span.text-danger * 글 작성시 입력한 비밀번호를 넣어주세요.
+							if !loginUser
+								tr
+									td.bg-dark.text-light.text-center 비밀번호
+									td
+										input.form-control(name="pw", type="password")
+										span.text-danger * 글 작성시 입력한 비밀번호를 넣어주세요.
 							tr
 								td.bg-dark.text-light.text-center 내용
 								td 
