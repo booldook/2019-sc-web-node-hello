@@ -54,7 +54,7 @@ html(lang="ko")
 								- if(loginUser) {
 								- 	if(loginUser.id == item.userid || loginUser.grade == 9) {
 											button.btn.btn-info.btn-sm.mr-1.btChg 수정
-											button.btn.btn-danger.btn-sm.btRev 삭제	
+											button.btn.btn-danger.btn-sm.btRev2(data-page=`${pager.page}`) 삭제	
 								- 	}
 								- } else {
 								- 	if(item.userid == "") {

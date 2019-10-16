@@ -95,13 +95,29 @@ function writeAjax(res, modal) {
 	}
 }
 
-// 삭제기능
+// 삭제기능 - 비회원
 $(".btRev").click(function(){
 	var id = $(this).parent().parent().children("td").eq(0).text();
 	//$("form[name='removeForm']").find("input[name='id']")
 	$("#remove-modal").find("input[name='id']").val(id);
 	$("#remove-modal").find("input[name='pw']").val('');
 	$("#remove-modal").modal("show");
+});
+// 삭제기능 - 회원, 관리자
+$(".btRev2").click(function(){
+	var id = $(this).parent().parent().children("td").eq(0).text(); // 글 id
+	var page = $(this).data("page");	//2
+	if(confirm("정말로 삭제하시겠습니까?")) {
+		ajax("/api/remove", "post", {id: id}, function(res){
+			if(res.code == 200) {
+				alert("삭제되었습니다.");
+				location.href = "/gbook/li/"+page;
+			}
+			else {
+				alert("삭제에 실패했습니다.");
+			}
+		});
+	}
 });
 
 $("#remove-modal").on("shown.bs.modal", function(){
